@@ -39,8 +39,15 @@ function createPrismaClient(): PrismaClient {
   const { PrismaPg } = require('@prisma/adapter-pg')
   const { Pool } = require('pg')
 
+  // Convert Prisma HTTP URL to TCP URL for pg Pool
+  let connectionString = process.env.DATABASE_URL
+  if (connectionString.startsWith('prisma+postgres://')) {
+    // For local Prisma dev server, use TCP connection on port 51214
+    connectionString = 'postgres://postgres:postgres@localhost:51214/template1?sslmode=disable'
+  }
+
   const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    connectionString,
     max: 10,
   })
 
