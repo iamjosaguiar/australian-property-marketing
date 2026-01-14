@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Force dynamic rendering to fetch fresh data from database on each request
+export const dynamic = 'force-dynamic';
+
 export default async function RealEstatePhotographyPage() {
   // Fetch states with suburb counts (with fallback if DB not set up)
   let states: any[] = [];
