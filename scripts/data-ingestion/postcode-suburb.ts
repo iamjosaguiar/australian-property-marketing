@@ -67,6 +67,27 @@ interface SuburbLookup {
 }
 
 /**
+ * Convert ALL CAPS text to proper Title Case
+ */
+function toTitleCase(text: string): string {
+  return text
+    .toLowerCase()
+    .split(' ')
+    .map(word => {
+      // Don't capitalize certain small words unless they're the first word
+      const smallWords = ['a', 'an', 'and', 'at', 'but', 'by', 'for', 'in', 'of', 'on', 'or', 'the', 'to', 'up', 'via'];
+      if (smallWords.includes(word)) {
+        return word;
+      }
+      // Capitalize first letter of each word
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ')
+    // Always capitalize first letter of the string
+    .replace(/^./, match => match.toUpperCase());
+}
+
+/**
  * Generate URL-friendly slug from text
  */
 function slugify(text: string): string {
@@ -186,7 +207,7 @@ function filterResidentialPostcodes(records: PostcodeRow[]): PostcodeRow[] {
 function transformToSuburbs(records: PostcodeRow[]): SuburbData[] {
   return records.map((record) => {
     const stateCode = record.state.toUpperCase();
-    const suburbName = record.locality;
+    const suburbName = toTitleCase(record.locality); // Convert to proper title case
 
     // Use precise coordinates if available, fallback to regular
     const lat = record.Lat_precise || record.lat;
@@ -194,7 +215,7 @@ function transformToSuburbs(records: PostcodeRow[]): SuburbData[] {
 
     return {
       name: suburbName,
-      slug: slugify(suburbName),
+      slug: slugify(record.locality), // Use original for slug generation
       state: stateCode,
       stateSlug: slugify(stateCode),
       stateFull: STATE_FULL_NAMES[stateCode] || stateCode,
