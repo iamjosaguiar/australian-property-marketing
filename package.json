@@ -8,9 +8,11 @@
     "start": "next start",
     "lint": "eslint",
     "db:seed": "tsx prisma/seed.ts",
+    "db:seed-suburbs": "tsx scripts/seed-suburbs.ts",
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "refresh-suburbs": "tsx scripts/data-ingestion/postcode-suburb.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -18,6 +20,8 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^17.2.3",
     "next": "16.1.1",
     "pg": "^8.16.3",
     "prisma": "^7.2.0",
