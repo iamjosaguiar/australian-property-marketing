@@ -4,8 +4,13 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+export const dynamicParams = true;
+
 // Generate static params for all active states
 export async function generateStaticParams() {
+  if (process.env.VERCEL === '1' && process.env.CI === '1') {
+    return [{ state: 'nsw' }];
+  }
   try {
     const { prisma } = await import('@/lib/prisma');
     const states = await prisma.state.findMany({

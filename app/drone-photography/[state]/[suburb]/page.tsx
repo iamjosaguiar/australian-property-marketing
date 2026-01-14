@@ -4,8 +4,13 @@ import Link from 'next/link';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  try {
+  if (process.env.VERCEL === '1' && process.env.CI === '1') {
+    return [{ state: 'nsw', suburb: 'bondi' }];
+  }
+  try{
     const { prisma } = await import('@/lib/prisma');
     const suburbs = await prisma.suburb.findMany({
       where: { active: true },
