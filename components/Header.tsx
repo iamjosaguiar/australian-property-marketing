@@ -16,8 +16,8 @@ export default function Header() {
           />
         </Link>
         <div className="hidden md:flex items-center gap-10">
-          <Link href="/real-estate-photography/" className="text-sm font-semibold text-slate-600 hover:text-primary transition-colors">
-            Locations
+          <Link href="/service-areas" className="text-sm font-semibold text-slate-600 hover:text-primary transition-colors">
+            Service Areas
           </Link>
           <Link href="/#services" className="text-sm font-semibold text-slate-600 hover:text-primary transition-colors">
             Services
