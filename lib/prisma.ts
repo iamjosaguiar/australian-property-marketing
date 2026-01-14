@@ -5,29 +5,43 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 function createPrismaClient(): PrismaClient {
-  // Skip real database during Vercel build to avoid timeouts
+  // During Vercel build, create a mock client that immediately throws
+  // This allows build to complete quickly using fallback data in try-catch blocks
   const isVercelBuild = process.env.VERCEL === '1' && process.env.CI === '1'
 
-  const connectionString = process.env.DATABASE_URL || 'postgresql://user:password@localhost:5432/db'
+  if (isVercelBuild) {
+    console.log('Vercel build detected - using mock Prisma client')
 
-  if (!process.env.DATABASE_URL || isVercelBuild) {
-    if (isVercelBuild) {
-      console.log('Vercel build detected - using mock adapter to prevent timeouts')
-    } else {
-      console.warn('DATABASE_URL not set - using placeholder for build. Database operations will fail and use fallback data.')
+    // Create mock client that throws on any database operation
+    const mockClient: any = {
+      $connect: async () => { throw new Error('Mock Prisma - no database') },
+      $disconnect: async () => {},
     }
+
+    // Add mock accessors for all models
+    const models = ['suburb', 'state', 'city', 'service', 'lead', 'portfolioImage', 'testimonial', 'localAgency']
+    models.forEach(model => {
+      mockClient[model] = new Proxy({}, {
+        get() {
+          throw new Error('Mock Prisma - database not available during build')
+        }
+      })
+    })
+
+    return mockClient as PrismaClient
+  }
+
+  // Production runtime - use real database
+  if (!process.env.DATABASE_URL) {
+    throw new Error('DATABASE_URL is required in production runtime')
   }
 
   const { PrismaPg } = require('@prisma/adapter-pg')
   const { Pool } = require('pg')
 
   const pool = new Pool({
-    connectionString,
-    // Configure to fail fast during build or when DATABASE_URL is missing
-    max: (!process.env.DATABASE_URL || isVercelBuild) ? 0 : 10,
-    min: 0,
-    idleTimeoutMillis: 1,
-    connectionTimeoutMillis: 100,
+    connectionString: process.env.DATABASE_URL,
+    max: 10,
   })
 
   const adapter = new PrismaPg(pool)
