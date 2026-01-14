@@ -579,7 +579,7 @@ export default async function SuburbPage({
             <p className="text-slate-600 mb-8">Looking for real estate photography near {suburb.name}? We also serve:</p>
 
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              {suburb.nearbySuburbsFrom.map((nearby) => (
+              {suburb.nearbySuburbsFrom.map((nearby: any) => (
                 <Link
                   key={nearby.id}
                   href={`/real-estate-photography/${nearby.nearbySuburb.stateSlug}/${nearby.nearbySuburb.slug}/`}

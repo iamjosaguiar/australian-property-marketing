@@ -126,7 +126,7 @@ export default async function StatePhotographyPage({
     }
     acc[cityName].push(suburb);
     return acc;
-  }, {} as Record<string, typeof suburbs>);
+  }, {} as Record<string, any[]>);
 
   // Get featured suburbs (high priority)
   const featuredSuburbs = suburbs.filter(s => s.priority >= 8).slice(0, 6);
@@ -252,7 +252,7 @@ export default async function StatePhotographyPage({
                   {cityName}
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {citySuburbs.map((suburb) => (
+                  {(citySuburbs as any[]).map((suburb) => (
                     <Link
                       key={suburb.id}
                       href={`/real-estate-photography/${suburb.stateSlug}/${suburb.slug}/`}

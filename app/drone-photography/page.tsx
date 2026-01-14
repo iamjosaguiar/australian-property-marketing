@@ -33,7 +33,7 @@ export default async function DronePhotographyPage() {
       take: 12,
     });
 
-    suburbsByState = await prisma.suburb.groupBy({
+    suburbsByState = await (prisma.suburb.groupBy as any)({
       by: ['state', 'stateFull', 'stateSlug'],
       where: { active: true },
       _count: { id: true },

@@ -120,7 +120,7 @@ export default async function StatePropertyVideoPage({
     }
     acc[cityName].push(suburb);
     return acc;
-  }, {} as Record<string, typeof suburbs>);
+  }, {} as Record<string, any[]>);
 
   const featuredSuburbs = suburbs.filter(s => s.priority >= 8).slice(0, 6);
 
@@ -225,7 +225,7 @@ export default async function StatePropertyVideoPage({
                     {cityName}
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {citySuburbs.map((suburb) => (
+                    {(citySuburbs as any[]).map((suburb) => (
                       <Link
                         key={suburb.id}
                         href={`/property-video/${suburb.stateSlug}/${suburb.slug}/`}
