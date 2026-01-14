@@ -6,29 +6,20 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-let _prisma: PrismaClient | undefined
-
 function createPrismaClient(): PrismaClient {
-  // During build time without DATABASE_URL, return a mock
   if (!process.env.DATABASE_URL) {
-    console.warn('DATABASE_URL not set - creating mock Prisma client')
-    // Create a mock client that will cause try-catch blocks to trigger
-    const mockClient = {
-      $connect: async () => { throw new Error('No DATABASE_URL') },
-      $disconnect: async () => {},
-    } as any
+    console.warn('DATABASE_URL not set - using dummy adapter for build')
 
-    // Add proxies for common model accessors to throw errors
-    const models = ['suburb', 'state', 'city', 'service', 'lead', 'portfolioImage', 'testimonial', 'localAgency']
-    models.forEach(model => {
-      mockClient[model] = new Proxy({}, {
-        get() {
-          throw new Error('DATABASE_URL not configured')
-        }
-      })
+    // Create a minimal connection pool that won't actually connect
+    const dummyPool = new Pool({
+      connectionString: 'postgresql://dummy:dummy@localhost:5432/dummy',
+      // Prevent actual connections
+      max: 0,
+      connectionTimeoutMillis: 1
     })
 
-    return mockClient
+    const adapter = new PrismaPg(dummyPool)
+    return new PrismaClient({ adapter })
   }
 
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
@@ -36,18 +27,6 @@ function createPrismaClient(): PrismaClient {
   return new PrismaClient({ adapter })
 }
 
-// Lazy initialization
-export const prisma = new Proxy({} as PrismaClient, {
-  get(target, prop) {
-    // Initialize on first access
-    if (!_prisma) {
-      _prisma = globalForPrisma.prisma ?? createPrismaClient()
-      if (process.env.NODE_ENV !== 'production') {
-        globalForPrisma.prisma = _prisma
-      }
-    }
+export const prisma = globalForPrisma.prisma ?? createPrismaClient()
 
-    const value = (_prisma as any)[prop]
-    return typeof value === 'function' ? value.bind(_prisma) : value
-  }
-})
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

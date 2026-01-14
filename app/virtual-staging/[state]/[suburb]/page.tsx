@@ -15,7 +15,7 @@ export async function generateStaticParams() {
       },
     });
 
-    return suburbs.map((suburb) => ({
+    return suburbs.map((suburb: any) => ({
       state: suburb.stateSlug,
       suburb: suburb.slug,
     }));
