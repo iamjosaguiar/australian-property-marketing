@@ -1,0 +1,293 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// STATES TABLE
+// ============================================
+model State {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(50)
+  slug        String   @unique @db.VarChar(10)
+  code        String   @unique @db.VarChar(3)
+  description String?  @db.Text
+  heroImageUrl String? @map("hero_image_url") @db.VarChar(500)
+  suburbCount Int     @default(0) @map("suburb_count")
+  avgMedianPrice Int? @map("avg_median_price")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  cities    City[]
+  suburbs   Suburb[]
+
+  @@map("states")
+}
+
+// ============================================
+// CITIES TABLE
+// ============================================
+model City {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  slug        String   @db.VarChar(100)
+  stateId     Int      @map("state_id")
+  description String?  @db.Text
+  heroImageUrl String? @map("hero_image_url") @db.VarChar(500)
+  suburbCount Int     @default(0) @map("suburb_count")
+  avgMedianPrice Int? @map("avg_median_price")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  state        State         @relation(fields: [stateId], references: [id])
+  testimonials Testimonial[]
+
+  @@unique([slug, stateId], name: "unique_city_state")
+  @@map("cities")
+}
+
+// ============================================
+// SUBURBS TABLE
+// ============================================
+model Suburb {
+  id                    Int      @id @default(autoincrement())
+
+  // Location identifiers
+  name                  String   @db.VarChar(100)
+  slug                  String   @unique @db.VarChar(100)
+  state                 String   @db.VarChar(3)
+  stateSlug             String   @map("state_slug") @db.VarChar(10)
+  stateFull             String   @map("state_full") @db.VarChar(50)
+  postcode              String   @db.VarChar(4)
+
+  // Geographic hierarchy
+  city                  String?  @db.VarChar(100)
+  citySlug              String?  @map("city_slug") @db.VarChar(100)
+  lga                   String?  @db.VarChar(100)
+  region                String?  @db.VarChar(100)
+
+  // Coordinates
+  latitude              Decimal  @db.Decimal(10, 8)
+  longitude             Decimal  @db.Decimal(11, 8)
+
+  // Market statistics
+  medianPrice           Int?     @map("median_price")
+  medianPriceFormatted  String?  @map("median_price_formatted") @db.VarChar(20)
+  propertiesSoldQtd     Int?     @map("properties_sold_qtd")
+  daysOnMarket          Int?     @map("days_on_market")
+  yoyGrowth             Decimal? @map("yoy_growth") @db.Decimal(5, 2)
+  statsUpdated          DateTime? @map("stats_updated") @db.Date
+
+  // Content fields
+  description           String?  @db.Text
+  landmarks             String?  @db.Text
+  propertyTypes         String?  @map("property_types") @db.VarChar(200)
+  primaryPropertyType   String?  @map("primary_property_type") @db.VarChar(50)
+
+  // Pricing
+  basePrice             Int      @default(295) @map("base_price")
+  premiumPrice          Int      @default(495) @map("premium_price")
+  prestigePrice         Int      @default(895) @map("prestige_price")
+  twilightPrice         Int      @default(150) @map("twilight_price")
+  dronePrice            Int      @default(150) @map("drone_price")
+  stagingPrice          Int      @default(48) @map("staging_price")
+  travelFee             Int      @default(0) @map("travel_fee")
+
+  // Service availability
+  nearestPhotographerKm Decimal? @map("nearest_photographer_km") @db.Decimal(5, 1)
+  sameDayAvailable      String   @default("Yes") @map("same_day_available") @db.VarChar(10)
+
+  // SEO fields
+  heroImageId           Int?     @map("hero_image_id")
+  agentCount            Int      @default(0) @map("agent_count")
+
+  // Status
+  active                Boolean  @default(true)
+  priority              Int      @default(0)
+
+  // Timestamps
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  stateRelation         State?   @relation(fields: [state], references: [code])
+  portfolioImages       PortfolioImage[]
+  localAgencies         LocalAgency[]
+  testimonials          Testimonial[]
+  leads                 Lead[]
+  nearbySuburbsFrom     NearbySuburb[] @relation("SuburbFrom")
+  nearbySuburbsTo       NearbySuburb[] @relation("SuburbTo")
+
+  @@index([state])
+  @@index([city])
+  @@index([postcode])
+  @@index([active])
+  @@index([priority])
+  @@map("suburbs")
+}
+
+// ============================================
+// PORTFOLIO IMAGES TABLE
+// ============================================
+model PortfolioImage {
+  id            Int      @id @default(autoincrement())
+  url           String   @db.VarChar(500)
+  thumbnailUrl  String?  @map("thumbnail_url") @db.VarChar(500)
+  altText       String?  @map("alt_text") @db.VarChar(200)
+
+  // Location tagging
+  suburbId      Int?     @map("suburb_id")
+  suburbName    String?  @map("suburb_name") @db.VarChar(100)
+  street        String?  @db.VarChar(200)
+
+  // Property details
+  propertyType  String   @default("House") @map("property_type") @db.VarChar(20)
+  bedrooms      Int?
+
+  // Categorization
+  imageType     String   @default("Interior") @map("image_type") @db.VarChar(20)
+
+  // Usage tracking
+  featured      Boolean  @default(false)
+  useCount      Int      @default(0) @map("use_count")
+
+  // Timestamps
+  shootDate     DateTime? @map("shoot_date") @db.Date
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  suburb        Suburb?  @relation(fields: [suburbId], references: [id])
+
+  @@index([suburbId])
+  @@index([propertyType])
+  @@index([featured])
+  @@map("portfolio_images")
+}
+
+// ============================================
+// LOCAL AGENCIES TABLE
+// ============================================
+model LocalAgency {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(100)
+  brand       String?  @db.VarChar(50)
+  logoUrl     String?  @map("logo_url") @db.VarChar(500)
+  website     String?  @db.VarChar(500)
+
+  suburbId    Int?     @map("suburb_id")
+  suburbName  String?  @map("suburb_name") @db.VarChar(100)
+  isPartner   Boolean  @default(false) @map("is_partner")
+
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  suburb      Suburb?  @relation(fields: [suburbId], references: [id])
+
+  @@index([suburbId])
+  @@index([isPartner])
+  @@map("local_agencies")
+}
+
+// ============================================
+// TESTIMONIALS TABLE
+// ============================================
+model Testimonial {
+  id              Int      @id @default(autoincrement())
+  quote           String   @db.Text
+  clientName      String   @map("client_name") @db.VarChar(100)
+  clientTitle     String?  @map("client_title") @db.VarChar(100)
+  agencyName      String?  @map("agency_name") @db.VarChar(100)
+
+  suburbId        Int?     @map("suburb_id")
+  cityId          Int?     @map("city_id")
+
+  featured        Boolean  @default(false)
+  rating          Int      @default(5)
+
+  testimonialDate DateTime? @map("testimonial_date") @db.Date
+  createdAt       DateTime  @default(now()) @map("created_at")
+
+  suburb          Suburb?  @relation(fields: [suburbId], references: [id])
+  city            City?    @relation(fields: [cityId], references: [id])
+
+  @@index([suburbId])
+  @@index([featured])
+  @@map("testimonials")
+}
+
+// ============================================
+// NEARBY SUBURBS TABLE
+// ============================================
+model NearbySuburb {
+  id              Int     @id @default(autoincrement())
+  suburbId        Int     @map("suburb_id")
+  nearbySuburbId  Int     @map("nearby_suburb_id")
+  distanceKm      Decimal @map("distance_km") @db.Decimal(5, 2)
+
+  suburb          Suburb  @relation("SuburbFrom", fields: [suburbId], references: [id])
+  nearbySuburb    Suburb  @relation("SuburbTo", fields: [nearbySuburbId], references: [id])
+
+  @@unique([suburbId, nearbySuburbId], name: "unique_pair")
+  @@index([suburbId])
+  @@index([distanceKm])
+  @@map("nearby_suburbs")
+}
+
+// ============================================
+// SERVICES TABLE
+// ============================================
+model Service {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(100)
+  slug             String   @unique @db.VarChar(100)
+  description      String?  @db.Text
+  shortDescription String?  @map("short_description") @db.VarChar(200)
+  basePrice        Int?     @map("base_price")
+  displayOrder     Int      @default(0) @map("display_order")
+  active           Boolean  @default(true)
+  createdAt        DateTime @default(now()) @map("created_at")
+
+  leads            Lead[]
+
+  @@map("services")
+}
+
+// ============================================
+// LEADS TABLE
+// ============================================
+model Lead {
+  id           Int      @id @default(autoincrement())
+
+  // Source tracking
+  suburbId     Int?     @map("suburb_id")
+  serviceId    Int?     @map("service_id")
+  landingPage  String?  @map("landing_page") @db.VarChar(500)
+  utmSource    String?  @map("utm_source") @db.VarChar(100)
+  utmMedium    String?  @map("utm_medium") @db.VarChar(100)
+  utmCampaign  String?  @map("utm_campaign") @db.VarChar(100)
+
+  // Lead details
+  name         String?  @db.VarChar(100)
+  email        String?  @db.VarChar(200)
+  phone        String?  @db.VarChar(20)
+  company      String?  @db.VarChar(100)
+  message      String?  @db.Text
+
+  // Status
+  status       String   @default("New") @db.VarChar(20)
+
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  suburb       Suburb?  @relation(fields: [suburbId], references: [id])
+  service      Service? @relation(fields: [serviceId], references: [id])
+
+  @@index([suburbId])
+  @@index([createdAt])
+  @@map("leads")
+}
