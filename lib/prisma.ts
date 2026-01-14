@@ -1,6 +1,4 @@
 import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { Pool } from 'pg'
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
@@ -8,19 +6,28 @@ const globalForPrisma = globalThis as unknown as {
 
 function createPrismaClient(): PrismaClient {
   if (!process.env.DATABASE_URL) {
-    console.warn('DATABASE_URL not set - using dummy adapter for build')
+    console.warn('DATABASE_URL not set - Prisma operations will fail and use fallback data')
 
-    // Create a minimal connection pool that won't actually connect
+    // Import adapters only when DATABASE_URL is available
+    // This prevents initialization errors during build
+    const { PrismaPg } = require('@prisma/adapter-pg')
+    const { Pool } = require('pg')
+
+    // Create a pool that will fail fast
     const dummyPool = new Pool({
-      connectionString: 'postgresql://dummy:dummy@localhost:5432/dummy',
-      // Prevent actual connections
-      max: 0,
-      connectionTimeoutMillis: 1
+      connectionString: 'postgresql://localhost:5432/dummy',
+      max: 1,
+      idleTimeoutMillis: 100,
+      connectionTimeoutMillis: 100
     })
 
     const adapter = new PrismaPg(dummyPool)
     return new PrismaClient({ adapter })
   }
+
+  // Only import when we have a real connection string
+  const { PrismaPg } = require('@prisma/adapter-pg')
+  const { Pool } = require('pg')
 
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
   const adapter = new PrismaPg(pool)
