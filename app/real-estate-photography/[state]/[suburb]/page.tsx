@@ -597,9 +597,50 @@ export default async function SuburbPage({
         </div>
       </section>
 
+      {/* Why Professional Photography - Statistics */}
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-black mb-4 text-center">Why Professional Photography Matters</h2>
+          <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+            Research shows professional real estate photography directly impacts sale outcomes.
+          </p>
+
+          <div className="grid md:grid-cols-4 gap-6 mb-12">
+            <div className="text-center p-6 bg-soft-grey rounded-xl">
+              <div className="text-4xl font-black text-primary mb-2">32%</div>
+              <div className="text-slate-700 font-semibold">Faster Sales</div>
+              <p className="text-sm text-slate-500 mt-2">Properties with professional photos sell 32% faster than those without</p>
+            </div>
+            <div className="text-center p-6 bg-soft-grey rounded-xl">
+              <div className="text-4xl font-black text-primary mb-2">84%</div>
+              <div className="text-slate-700 font-semibold">Higher Success Rate</div>
+              <p className="text-sm text-slate-500 mt-2">Professional photos increase chance of selling within listing period</p>
+            </div>
+            <div className="text-center p-6 bg-soft-grey rounded-xl">
+              <div className="text-4xl font-black text-primary mb-2">118%</div>
+              <div className="text-slate-700 font-semibold">More Views</div>
+              <p className="text-sm text-slate-500 mt-2">Listings with quality photos get over double the online views</p>
+            </div>
+            <div className="text-center p-6 bg-soft-grey rounded-xl">
+              <div className="text-4xl font-black text-primary mb-2">47%</div>
+              <div className="text-slate-700 font-semibold">Higher $/sqm</div>
+              <p className="text-sm text-slate-500 mt-2">Professional imagery increases perceived price per square metre</p>
+            </div>
+          </div>
+
+          <div className="bg-primary/10 rounded-xl p-6 max-w-3xl mx-auto">
+            <p className="text-slate-700 text-center">
+              <span className="font-semibold">87% of buyers</span> say photos are the most useful feature when searching online.
+              Buyers spend <span className="font-semibold">60% of their time</span> viewing listing photos vs just 20% reading descriptions.
+            </p>
+            <p className="text-xs text-slate-500 text-center mt-3">Sources: National Association of Realtors, Wall Street Journal, Matterport Research</p>
+          </div>
+        </div>
+      </section>
+
       {/* About Suburb */}
       {suburb.description && (
-        <section className="py-20 px-6 bg-white">
+        <section className="py-20 px-6 bg-soft-grey">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-black mb-8">Property Photography in {suburb.name}</h2>
             <div className="prose prose-lg max-w-none">

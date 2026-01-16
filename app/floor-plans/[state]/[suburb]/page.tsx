@@ -262,9 +262,50 @@ export default async function SuburbFloorPlansPage({
           </div>
         </section>
 
+        {/* Why Floor Plans - Statistics */}
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-4 text-center">Why Floor Plans Matter</h2>
+            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+              Buyers consistently rate floor plans as one of the most useful listing features.
+            </p>
+
+            <div className="grid md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">52%</div>
+                <div className="text-slate-700 font-semibold">More Clicks</div>
+                <p className="text-sm text-slate-500 mt-2">Listings with floor plans get 52% more click-throughs</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">50%</div>
+                <div className="text-slate-700 font-semibold">Faster Sales</div>
+                <p className="text-sm text-slate-500 mt-2">Properties with floor plans sell 50% faster on average</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">93%</div>
+                <div className="text-slate-700 font-semibold">More Engaged</div>
+                <p className="text-sm text-slate-500 mt-2">Of buyers are more engaged with listings that have floor plans</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">1 in 5</div>
+                <div className="text-slate-700 font-semibold">Won't Look</div>
+                <p className="text-sm text-slate-500 mt-2">Buyers ignore listings without a floor plan entirely</p>
+              </div>
+            </div>
+
+            <div className="bg-primary/10 rounded-xl p-6 max-w-3xl mx-auto">
+              <p className="text-slate-700 text-center">
+                <span className="font-semibold">68% of buyers</span> say floor plans are more important than staging or virtual tours.
+                On realestate.com.au, floor plans are opened <span className="font-semibold">7.5x more often</span> than maps.
+              </p>
+              <p className="text-xs text-slate-500 text-center mt-3">Sources: Rightmove, CubiCasa, realestate.com.au Research</p>
+            </div>
+          </div>
+        </section>
+
         {/* Property Type Insights - shows when Census data available */}
         {suburb.primaryDwellingType && (
-          <section className="py-16 px-6 bg-white">
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Floor Plans for {suburb.name} Properties</h2>
 

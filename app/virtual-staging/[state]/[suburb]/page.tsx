@@ -262,9 +262,50 @@ export default async function SuburbVirtualStagingPage({
           </div>
         </section>
 
+        {/* Why Virtual Staging - Statistics */}
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-4 text-center">Why Virtual Staging Works</h2>
+            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+              Research shows virtually staged properties outperform vacant listings significantly.
+            </p>
+
+            <div className="grid md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">73%</div>
+                <div className="text-slate-700 font-semibold">Faster Sales</div>
+                <p className="text-sm text-slate-500 mt-2">Staged homes sell 73% faster than non-staged properties</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">6-20%</div>
+                <div className="text-slate-700 font-semibold">Higher Prices</div>
+                <p className="text-sm text-slate-500 mt-2">REIQ reports staged homes fetch 6-20% higher sale prices</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">74%</div>
+                <div className="text-slate-700 font-semibold">Serious Buyers</div>
+                <p className="text-sm text-slate-500 mt-2">Virtual staging increases interest from qualified buyers</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">40%</div>
+                <div className="text-slate-700 font-semibold">More Views</div>
+                <p className="text-sm text-slate-500 mt-2">Virtually staged listings get 40% more online views</p>
+              </div>
+            </div>
+
+            <div className="bg-primary/10 rounded-xl p-6 max-w-3xl mx-auto">
+              <p className="text-slate-700 text-center">
+                <span className="font-semibold">82% of buyers' agents</span> say staging makes it easier for clients to visualize a property as their home.
+                Virtual staging costs <span className="font-semibold">75-90% less</span> than traditional staging with the same impact.
+              </p>
+              <p className="text-xs text-slate-500 text-center mt-3">Sources: Real Estate Staging Association, REIQ, RE/MAX Research</p>
+            </div>
+          </div>
+        </section>
+
         {/* Target Audience Insights - shows when Census data available */}
         {(suburb.ownerPercentage || suburb.renterPercentage || suburb.stagingTargetAudience) && (
-          <section className="py-16 px-6 bg-white">
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Virtual Staging for {suburb.name}</h2>
 

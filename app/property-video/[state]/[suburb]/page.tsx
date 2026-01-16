@@ -373,6 +373,47 @@ export default async function SuburbPropertyVideoPage({
           </section>
         )}
 
+        {/* Why Property Video - Statistics */}
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-4 text-center">Why Property Video Works</h2>
+            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+              Video gives buyers an immersive experience that photos alone cannot provide.
+            </p>
+
+            <div className="grid md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">403%</div>
+                <div className="text-slate-700 font-semibold">More Enquiries</div>
+                <p className="text-sm text-slate-500 mt-2">Listings with video receive 403% more enquiries</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">31%</div>
+                <div className="text-slate-700 font-semibold">Less Time</div>
+                <p className="text-sm text-slate-500 mt-2">Properties with virtual tours sell 31% faster on market</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">9%</div>
+                <div className="text-slate-700 font-semibold">Higher Prices</div>
+                <p className="text-sm text-slate-500 mt-2">Virtual tours alongside photos can boost price by up to 9%</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">85%</div>
+                <div className="text-slate-700 font-semibold">Want Video</div>
+                <p className="text-sm text-slate-500 mt-2">Of buyers and sellers want agents who use video marketing</p>
+              </div>
+            </div>
+
+            <div className="bg-primary/10 rounded-xl p-6 max-w-3xl mx-auto">
+              <p className="text-slate-700 text-center">
+                <span className="font-semibold">73% of homeowners</span> say they're more likely to list with an agent who uses video.
+                Listings with both video and drone footage see the <span className="font-semibold">highest engagement rates</span>.
+              </p>
+              <p className="text-xs text-slate-500 text-center mt-3">Sources: National Association of Realtors, Matterport Research</p>
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 px-6 bg-soft-grey" id="packages">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-black text-center mb-4">Video Packages for {suburb.name}</h2>

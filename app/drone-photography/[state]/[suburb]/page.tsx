@@ -262,9 +262,50 @@ export default async function SuburbDronePhotographyPage({
           </div>
         </section>
 
+        {/* Why Drone Photography - Statistics */}
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-4 text-center">Why Aerial Photography Works</h2>
+            <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
+              Drone photography gives buyers a perspective they can't get any other way.
+            </p>
+
+            <div className="grid md:grid-cols-4 gap-6 mb-12">
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">68%</div>
+                <div className="text-slate-700 font-semibold">Faster Sales</div>
+                <p className="text-sm text-slate-500 mt-2">Properties with aerial photos sell 68% faster according to MLS data</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">5x</div>
+                <div className="text-slate-700 font-semibold">More Engagement</div>
+                <p className="text-sm text-slate-500 mt-2">Listings with aerial imagery attract 5x more online engagement</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">10%</div>
+                <div className="text-slate-700 font-semibold">Higher Prices</div>
+                <p className="text-sm text-slate-500 mt-2">Homes with aerial images can see up to 10% price increase</p>
+              </div>
+              <div className="text-center p-6 bg-soft-grey rounded-xl">
+                <div className="text-4xl font-black text-primary mb-2">83%</div>
+                <div className="text-slate-700 font-semibold">Seller Preference</div>
+                <p className="text-sm text-slate-500 mt-2">Of sellers specifically look for agents who use drone photography</p>
+              </div>
+            </div>
+
+            <div className="bg-primary/10 rounded-xl p-6 max-w-3xl mx-auto">
+              <p className="text-slate-700 text-center">
+                <span className="font-semibold">65% of buyers</span> are more likely to schedule in-person viewings after seeing aerial photos.
+                <span className="font-semibold"> 80% of top agents</span> now use drone photography in their marketing.
+              </p>
+              <p className="text-xs text-slate-500 text-center mt-3">Sources: National Association of Realtors, MLS Statistics</p>
+            </div>
+          </div>
+        </section>
+
         {/* Weather Conditions Widget - shows when data available */}
         {suburb.droneFlightRating && (
-          <section className="py-16 px-6 bg-white">
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Drone Flying Conditions in {suburb.name}</h2>
 
