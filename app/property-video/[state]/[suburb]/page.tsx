@@ -161,7 +161,138 @@ export default async function SuburbPropertyVideoPage({
           </div>
         </section>
 
-        <section className="py-20 px-6 bg-soft-grey" id="packages">
+        {/* Video Conditions - shows when weather data available */}
+        {suburb.annualSunnyDays && (
+          <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">Video Filming Conditions in {suburb.name}</h2>
+
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                <div className="bg-soft-grey rounded-xl p-6 text-center">
+                  <div className="text-4xl font-black text-primary mb-2">{suburb.annualSunnyDays}</div>
+                  <div className="text-slate-600">Clear Sky Days/Year</div>
+                  <p className="text-sm text-slate-500 mt-2">Ideal filming weather</p>
+                </div>
+                {suburb.goldenHourStart && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.goldenHourStart}</div>
+                    <div className="text-slate-600">Golden Hour Start</div>
+                    <p className="text-sm text-slate-500 mt-2">Best natural lighting</p>
+                  </div>
+                )}
+                {suburb.avgSunsetTime && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.avgSunsetTime}</div>
+                    <div className="text-slate-600">Average Sunset</div>
+                    <p className="text-sm text-slate-500 mt-2">Plan twilight shoots</p>
+                  </div>
+                )}
+                {suburb.twilightDuration && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-primary mb-2">{suburb.twilightDuration} min</div>
+                    <div className="text-slate-600">Twilight Window</div>
+                    <p className="text-sm text-slate-500 mt-2">Usable twilight footage time</p>
+                  </div>
+                )}
+              </div>
+
+              {suburb.bestMonthsPhotography && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">videocam</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Best Months for Video Production</p>
+                      <p className="text-slate-700">{suburb.bestMonthsPhotography} offer the best natural lighting and weather conditions for property video in {suburb.name}.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.droneFlightRating && (
+                <div className="bg-soft-grey rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">flight</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Drone Footage Conditions</p>
+                      <p className="text-slate-700">
+                        {suburb.name} has <strong>{suburb.droneFlightRating}</strong> drone flying conditions.
+                        {suburb.droneFlightRating === 'excellent' && ' Our Premium and Luxury packages include stunning aerial footage.'}
+                        {suburb.droneFlightRating === 'good' && ' Aerial footage is recommended for most properties in this area.'}
+                        {suburb.droneFlightRating === 'moderate' && ' We can schedule drone footage for optimal wind conditions.'}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {/* Market Insights - shows when census data available */}
+        {(suburb.medianPrice || suburb.incomeQuartile) && (
+          <section className="py-16 px-6 bg-soft-grey">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">{suburb.name} Property Market</h2>
+
+              <div className="grid md:grid-cols-3 gap-6 mb-8">
+                {suburb.medianPrice && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">${suburb.medianPriceFormatted}</div>
+                    <div className="text-slate-600">Median Property Price</div>
+                  </div>
+                )}
+                {suburb.avgBedrooms && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.avgBedrooms.toString()}</div>
+                    <div className="text-slate-600">Average Bedrooms</div>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {Number(suburb.avgBedrooms) >= 4 ? 'Larger homes suit longer videos' : 'Compact videos work well'}
+                    </p>
+                  </div>
+                )}
+                {suburb.daysOnMarket && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.daysOnMarket}</div>
+                    <div className="text-slate-600">Avg Days on Market</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Package recommendation based on market */}
+              {suburb.incomeQuartile === 'high' && (
+                <div className="bg-white rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">star</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Luxury Package Recommended</p>
+                      <p className="text-slate-700">
+                        {suburb.name} is a premium market where buyers expect high-quality marketing.
+                        Our <strong>Luxury Video Package</strong> with cinematic footage, twilight scenes,
+                        and extensive drone coverage is popular with agents here.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {suburb.incomeQuartile === 'upper-middle' && (
+                <div className="bg-white rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">trending_up</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Premium Package Popular</p>
+                      <p className="text-slate-700">
+                        {suburb.name} has an active property market. Our <strong>Premium Video Package</strong>
+                        with drone footage and professional voice-over is the most popular choice here.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section className="py-20 px-6 bg-white" id="packages">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-black text-center mb-4">Video Packages for {suburb.name}</h2>
             <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">
@@ -313,9 +444,55 @@ export default async function SuburbPropertyVideoPage({
                   <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
                 </summary>
                 <div className="px-6 pb-6 text-slate-700">
-                  <p>Drone footage is included in our Premium and Luxury video packages. All our drone operators are CASA-certified. Drone coverage is particularly effective for showcasing {suburb.name}'s location and property features.</p>
+                  <p>Drone footage is included in our Premium and Luxury video packages. All our drone operators are CASA-certified. {suburb.droneFlightRating && `${suburb.name} has ${suburb.droneFlightRating} drone flying conditions, making aerial footage ${suburb.droneFlightRating === 'excellent' || suburb.droneFlightRating === 'good' ? 'highly recommended' : 'achievable with good planning'}.`}</p>
                 </div>
               </details>
+
+              {suburb.goldenHourStart && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>When is the best time to film in {suburb.name}?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>The best natural lighting in {suburb.name} is during golden hour, which starts around {suburb.goldenHourStart}. {suburb.twilightDuration && `For twilight footage, we have approximately ${suburb.twilightDuration} minutes of usable shooting time after sunset.`} {suburb.bestMonthsPhotography && `${suburb.bestMonthsPhotography} generally offer the most consistent weather conditions.`}</p>
+                  </div>
+                </details>
+              )}
+
+              {suburb.annualSunnyDays && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>What if it rains on the scheduled filming day?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>We reschedule at no extra cost if weather conditions are unsuitable. {suburb.name} enjoys approximately {suburb.annualSunnyDays} clear days per year, so rescheduling usually only delays filming by a day or two. We monitor forecasts and will contact you in advance if rescheduling is needed.</p>
+                  </div>
+                </details>
+              )}
+
+              <details className="group bg-white rounded-lg">
+                <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                  <span>Do you offer twilight video for {suburb.name} properties?</span>
+                  <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                </summary>
+                <div className="px-6 pb-6 text-slate-700">
+                  <p>Yes, twilight footage is included in our Luxury package and can be added to other packages. Twilight video showcases exterior lighting and creates a premium, cinematic feel. {suburb.avgSunsetTime && `In ${suburb.name}, sunset typically occurs around ${suburb.avgSunsetTime}.`} {suburb.twilightDuration && `We have a ${suburb.twilightDuration}-minute window for capturing optimal twilight footage.`}</p>
+                </div>
+              </details>
+
+              {suburb.avgBedrooms && Number(suburb.avgBedrooms) >= 4 && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>What video length suits {suburb.name} properties?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>With an average of {suburb.avgBedrooms} bedrooms per property, {suburb.name} homes often benefit from our Premium (3-4 minute) or Luxury (5-7 minute) video packages. Longer videos allow time to showcase multiple living areas, outdoor spaces, and neighbourhood features.</p>
+                  </div>
+                </details>
+              )}
             </div>
           </div>
         </section>

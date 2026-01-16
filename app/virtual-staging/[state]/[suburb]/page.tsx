@@ -262,8 +262,100 @@ export default async function SuburbVirtualStagingPage({
           </div>
         </section>
 
-        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+        {/* Target Audience Insights - shows when Census data available */}
+        {(suburb.ownerPercentage || suburb.renterPercentage || suburb.stagingTargetAudience) && (
           <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">Virtual Staging for {suburb.name}</h2>
+
+              <div className="grid md:grid-cols-2 gap-8 mb-8">
+                {suburb.renterPercentage && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.renterPercentage.toString()}%</div>
+                    <div className="text-slate-600">Rental Properties</div>
+                    <p className="text-sm text-slate-500 mt-2">Investment market activity</p>
+                  </div>
+                )}
+                {suburb.ownerPercentage && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.ownerPercentage.toString()}%</div>
+                    <div className="text-slate-600">Owner-Occupied</div>
+                    <p className="text-sm text-slate-500 mt-2">Family home market</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Investor-focused messaging */}
+              {suburb.stagingTargetAudience === 'investors' && suburb.renterPercentage && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-8">
+                  <h3 className="font-bold text-navy-900 mb-3 text-lg">High Investment Activity</h3>
+                  <p className="text-slate-700 mb-4">
+                    With {suburb.renterPercentage.toString()}% of properties rented, {suburb.name} attracts significant investor interest.
+                    Virtual staging helps investors visualize tenant-ready presentation and rental potential.
+                  </p>
+                  <div className="flex items-start gap-3 bg-white rounded-lg p-4">
+                    <span className="material-symbols-outlined text-primary">palette</span>
+                    <div>
+                      <p className="font-semibold text-navy-900">Popular styles for {suburb.name}:</p>
+                      <p className="text-slate-600">Contemporary, minimalist, neutral tones that photograph well and appeal to broad tenant demographics.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Owner-occupier messaging */}
+              {suburb.stagingTargetAudience === 'owner-occupiers' && suburb.ownerPercentage && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-8">
+                  <h3 className="font-bold text-navy-900 mb-3 text-lg">Owner-Occupier Market</h3>
+                  <p className="text-slate-700 mb-4">
+                    {suburb.name} is predominantly owner-occupied ({suburb.ownerPercentage.toString()}%).
+                    Virtual staging helps families visualize living spaces and creates emotional connection with the home.
+                  </p>
+                  <div className="flex items-start gap-3 bg-white rounded-lg p-4">
+                    <span className="material-symbols-outlined text-primary">palette</span>
+                    <div>
+                      <p className="font-semibold text-navy-900">Recommended styles for {suburb.name}:</p>
+                      <p className="text-slate-600">Warm, family-friendly designs with quality furnishings that help buyers envision their family in the space.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Income-based styling */}
+              {suburb.incomeQuartile === 'high' && (
+                <div className="bg-primary/10 rounded-xl p-6 mb-8">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">diamond</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Premium Market</p>
+                      <p className="text-slate-700">{suburb.name} buyers expect high-quality presentation. We recommend our <strong>Luxury furniture collection</strong> with designer pieces to match the caliber of properties in this area.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Room recommendation */}
+              {suburb.avgBedrooms && (
+                <div className="bg-soft-grey rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">recommend</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Staging Recommendation</p>
+                      <p className="text-slate-700">
+                        {suburb.name} properties average {suburb.avgBedrooms.toString()} bedrooms. Our most popular package here is the
+                        <strong> {Number(suburb.avgBedrooms) >= 4 ? '5 Room Package' : Number(suburb.avgBedrooms) >= 3 ? '3 Room Package' : 'Single Room'}</strong> covering
+                        {Number(suburb.avgBedrooms) >= 4 ? ' living room, master bedroom, and additional living spaces' : Number(suburb.avgBedrooms) >= 3 ? ' living room, master bedroom, and dining area' : ' the key living area'}.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Also Serving Nearby Areas</h2>
               <p className="text-slate-600 mb-8">Looking for virtual staging near {suburb.name}? We also serve:</p>
@@ -316,6 +408,45 @@ export default async function SuburbVirtualStagingPage({
                   <p>We offer multiple furniture styles suited to the {suburb.name} market, including Contemporary, Coastal, Luxury, Minimalist, Scandinavian, Industrial, Traditional, and Mid-Century. We can recommend the best style based on your property type and target buyers.</p>
                 </div>
               </details>
+
+              {/* Investor market FAQ */}
+              {suburb.renterPercentage && Number(suburb.renterPercentage) > 50 && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>Which staging style works best for {suburb.name}'s investor market?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>With {suburb.renterPercentage.toString()}% of {suburb.name} properties rented, we recommend contemporary neutral styling that appeals to both investors and potential tenants. Clean lines and quality furnishings photograph well and suggest easy-to-maintain living.</p>
+                  </div>
+                </details>
+              )}
+
+              {/* Premium market FAQ */}
+              {suburb.incomeQuartile === 'high' && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>Do you offer luxury staging for high-end {suburb.name} properties?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>Absolutely. {suburb.name}'s affluent market{suburb.medianAnnualIncome ? ` (median income $${Math.round(Number(suburb.medianAnnualIncome) / 1000)}K annually)` : ''} expects premium presentation. Our Luxury collection features designer furniture, art, and accessories that match the caliber of {suburb.name} properties.</p>
+                  </div>
+                </details>
+              )}
+
+              {/* Room count FAQ */}
+              {suburb.avgBedrooms && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>How many rooms should I stage in {suburb.name}?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>{suburb.name} properties average {suburb.avgBedrooms.toString()} bedrooms. We recommend staging at least the living room and master bedroom. For properties with {Number(suburb.avgBedrooms) >= 3 ? '3+ bedrooms, our 3 or 5 Room Package provides best value' : 'up to 2 bedrooms, our Single Room package is usually sufficient'} and covers the key spaces buyers focus on.</p>
+                  </div>
+                </details>
+              )}
             </div>
           </div>
         </section>

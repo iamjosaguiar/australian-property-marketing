@@ -92,6 +92,102 @@ model Suburb {
   propertyTypes         String?  @map("property_types") @db.VarChar(200)
   primaryPropertyType   String?  @map("primary_property_type") @db.VarChar(50)
 
+  // ============================================
+  // CENSUS DATA (ABS)
+  // ============================================
+
+  // Housing Structure
+  dwellingHouses        Int?     @map("dwelling_houses")
+  dwellingUnits         Int?     @map("dwelling_units")
+  dwellingTownhouses    Int?     @map("dwelling_townhouses")
+  dwellingSemiDetached  Int?     @map("dwelling_semi_detached")
+  dwellingOther         Int?     @map("dwelling_other")
+  primaryDwellingType   String?  @map("primary_dwelling_type") @db.VarChar(50)
+  dwellingTypeRatio     String?  @map("dwelling_type_ratio") @db.VarChar(100)
+
+  // Tenure (Owner vs Renter)
+  ownerOccupied         Int?     @map("owner_occupied")
+  renterOccupied        Int?     @map("renter_occupied")
+  ownerPercentage       Decimal? @map("owner_percentage") @db.Decimal(5, 2)
+  renterPercentage      Decimal? @map("renter_percentage") @db.Decimal(5, 2)
+  tenureProfile         String?  @map("tenure_profile") @db.VarChar(50)
+
+  // Household Income
+  medianWeeklyIncome    Int?     @map("median_weekly_income")
+  medianAnnualIncome    Int?     @map("median_annual_income")
+  incomeQuartile        String?  @map("income_quartile") @db.VarChar(20)
+  incomeDescription     String?  @map("income_description") @db.VarChar(100)
+
+  // Dwelling Size (Bedrooms)
+  avgBedrooms           Decimal? @map("avg_bedrooms") @db.Decimal(3, 1)
+  bedroomDistribution   String?  @map("bedroom_distribution") @db.VarChar(200)
+
+  // Population & Demographics
+  population            Int?
+  medianAge             Int?     @map("median_age")
+  familyHouseholds      Int?     @map("family_households")
+  coupleNoChildren      Int?     @map("couple_no_children")
+  singlePersonHousehold Int?     @map("single_person_household")
+
+  // Census metadata
+  sa2Code               String?  @map("sa2_code") @db.VarChar(20)
+  sa2Name               String?  @map("sa2_name") @db.VarChar(100)
+  censusYear            Int?     @map("census_year")
+  censusUpdated         DateTime? @map("census_updated") @db.Date
+  censusDataQuality     String?  @map("census_data_quality") @db.VarChar(20)
+
+  // ============================================
+  // WEATHER/CLIMATE DATA (BOM)
+  // ============================================
+
+  // Annual Climate
+  annualSunnyDays       Int?     @map("annual_sunny_days")
+  annualRainyDays       Int?     @map("annual_rainy_days")
+  annualCloudyDays      Int?     @map("annual_cloudy_days")
+  bestMonthsPhotography String?  @map("best_months_photography") @db.VarChar(100)
+
+  // Wind Data (critical for drones)
+  avgWindSpeedKmh       Decimal? @map("avg_wind_speed_kmh") @db.Decimal(4, 1)
+  maxWindSpeedKmh       Decimal? @map("max_wind_speed_kmh") @db.Decimal(4, 1)
+  lowWindDays           Int?     @map("low_wind_days")
+  droneFlightRating     String?  @map("drone_flight_rating") @db.VarChar(20)
+  droneSeasonNotes      String?  @map("drone_season_notes") @db.VarChar(200)
+
+  // Twilight Data
+  avgSunsetTime         String?  @map("avg_sunset_time") @db.VarChar(10)
+  goldenHourStart       String?  @map("golden_hour_start") @db.VarChar(10)
+  twilightDuration      Int?     @map("twilight_duration")
+  bestTwilightMonths    String?  @map("best_twilight_months") @db.VarChar(100)
+
+  // Temperature
+  avgSummerMaxTemp      Decimal? @map("avg_summer_max_temp") @db.Decimal(4, 1)
+  avgWinterMaxTemp      Decimal? @map("avg_winter_max_temp") @db.Decimal(4, 1)
+
+  // Weather station metadata
+  nearestBomStation     String?  @map("nearest_bom_station") @db.VarChar(100)
+  bomStationId          String?  @map("bom_station_id") @db.VarChar(20)
+  bomDistanceKm         Decimal? @map("bom_distance_km") @db.Decimal(5, 1)
+  weatherUpdated        DateTime? @map("weather_updated") @db.Date
+
+  // ============================================
+  // SERVICE-SPECIFIC COMPUTED INSIGHTS
+  // ============================================
+
+  // Floor Plans - complexity indicator
+  floorPlanComplexity   String?  @map("floor_plan_complexity") @db.VarChar(20)
+  typicalLayoutNotes    String?  @map("typical_layout_notes") @db.VarChar(300)
+
+  // Virtual Staging - target audience
+  stagingTargetAudience String?  @map("staging_target_audience") @db.VarChar(50)
+  stagingStyleHint      String?  @map("staging_style_hint") @db.VarChar(100)
+
+  // Drone Photography - feasibility
+  droneRecommended      Boolean  @default(true) @map("drone_recommended")
+  droneRestrictions     String?  @map("drone_restrictions") @db.VarChar(200)
+
+  // Photography general
+  photographySeasonTip  String?  @map("photography_season_tip") @db.VarChar(200)
+
   // Pricing
   basePrice             Int      @default(295) @map("base_price")
   premiumPrice          Int      @default(495) @map("premium_price")
@@ -131,6 +227,10 @@ model Suburb {
   @@index([postcode])
   @@index([active])
   @@index([priority])
+  @@index([primaryDwellingType])
+  @@index([incomeQuartile])
+  @@index([droneFlightRating])
+  @@index([censusYear])
   @@map("suburbs")
 }
 

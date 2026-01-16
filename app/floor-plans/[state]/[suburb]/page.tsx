@@ -262,8 +262,78 @@ export default async function SuburbFloorPlansPage({
           </div>
         </section>
 
-        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+        {/* Property Type Insights - shows when Census data available */}
+        {suburb.primaryDwellingType && (
           <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">Floor Plans for {suburb.name} Properties</h2>
+
+              {suburb.dwellingTypeRatio && (
+                <p className="text-lg text-slate-700 mb-8">{suburb.name} features {suburb.dwellingTypeRatio}.</p>
+              )}
+
+              <div className="grid md:grid-cols-3 gap-8 mb-8">
+                {suburb.primaryDwellingType && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-lg font-bold text-navy-900 mb-2 capitalize">{suburb.primaryDwellingType}s</div>
+                    <div className="text-slate-600">Primary Property Type</div>
+                  </div>
+                )}
+                {suburb.avgBedrooms && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.avgBedrooms.toString()}</div>
+                    <div className="text-slate-600">Average Bedrooms</div>
+                  </div>
+                )}
+                {suburb.floorPlanComplexity && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-lg font-bold text-navy-900 mb-2 capitalize">{suburb.floorPlanComplexity}</div>
+                    <div className="text-slate-600">Layout Complexity</div>
+                  </div>
+                )}
+              </div>
+
+              {suburb.typicalLayoutNotes && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-8">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">info</span>
+                    <div>
+                      <p className="text-slate-700">{suburb.typicalLayoutNotes}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Recommendation based on property type */}
+              {suburb.primaryDwellingType === 'house' && suburb.avgBedrooms && Number(suburb.avgBedrooms) >= 4 && (
+                <div className="bg-primary/10 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">recommend</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Recommendation for {suburb.name}</p>
+                      <p className="text-slate-700">{suburb.name} properties typically have complex layouts (average {suburb.avgBedrooms.toString()} bedrooms), often multi-level. Our <strong>3D Bundle at ${floorPlanBundlePrice}</strong> helps buyers visualize these spaces effectively.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.primaryDwellingType === 'unit' && (
+                <div className="bg-primary/10 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">recommend</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">For {suburb.name} Apartments</p>
+                      <p className="text-slate-700">Floor plans are essential for {suburb.name} apartments to show room proportions and layout efficiency. Our <strong>2D plans starting at ${floorPlanPrice}</strong> help buyers compare units effectively.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Also Serving Nearby Areas</h2>
               <p className="text-slate-600 mb-8">Looking for floor plans near {suburb.name}? We also serve:</p>
@@ -316,6 +386,31 @@ export default async function SuburbFloorPlansPage({
                   <p>Yes, listings with floor plans receive up to 30% more views than those without. Floor plans help {suburb.name} buyers understand room flow, sizes, and how spaces connect - information that photos alone can't convey. Many premium property portals now require or recommend floor plans for listings.</p>
                 </div>
               </details>
+
+              {/* Property-type-aware FAQ */}
+              {suburb.primaryDwellingType === 'unit' && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>Are floor plans really necessary for apartments in {suburb.name}?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>Floor plans are essential for {suburb.name} apartments. Buyers often compare multiple units and floor plans show exact dimensions, room proportions, and layout efficiency that photos can't convey. They help buyers understand storage space, room sizes, and overall liveability before inspecting.</p>
+                  </div>
+                </details>
+              )}
+
+              {suburb.primaryDwellingType === 'house' && suburb.avgBedrooms && Number(suburb.avgBedrooms) >= 3 && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>What type of floor plan works best for {suburb.name} houses?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>For {suburb.name}'s houses (averaging {suburb.avgBedrooms.toString()} bedrooms), we recommend our 3D floor plans. They help buyers visualize room sizes and flow, especially for larger or multi-level properties. The furnished 3D visualization shows how spaces can be used, which is particularly valuable for family buyers.</p>
+                  </div>
+                </details>
+              )}
             </div>
           </div>
         </section>

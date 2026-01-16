@@ -443,6 +443,46 @@ export default async function SuburbPage({
                 </div>
               )}
             </div>
+
+            {/* Census-enhanced stats */}
+            {(suburb.medianAnnualIncome || suburb.ownerPercentage) && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+                {suburb.medianAnnualIncome && (
+                  <div className="text-center p-6 bg-soft-grey rounded-xl">
+                    <div className="text-3xl font-black text-primary mb-2">${Math.round(Number(suburb.medianAnnualIncome) / 1000)}K</div>
+                    <div className="text-sm text-slate-600">Median Household Income</div>
+                  </div>
+                )}
+                {suburb.ownerPercentage && (
+                  <div className="text-center p-6 bg-soft-grey rounded-xl">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.ownerPercentage.toString()}%</div>
+                    <div className="text-sm text-slate-600">Owner Occupiers</div>
+                  </div>
+                )}
+                {suburb.primaryDwellingType && (
+                  <div className="text-center p-6 bg-soft-grey rounded-xl">
+                    <div className="text-2xl font-black text-primary mb-2 capitalize">{suburb.primaryDwellingType}s</div>
+                    <div className="text-sm text-slate-600">Primary Property Type</div>
+                  </div>
+                )}
+                {suburb.avgBedrooms && (
+                  <div className="text-center p-6 bg-soft-grey rounded-xl">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.avgBedrooms.toString()}</div>
+                    <div className="text-sm text-slate-600">Average Bedrooms</div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Income-based recommendation */}
+            {suburb.incomeQuartile === 'high' && (
+              <div className="mt-8 p-6 bg-primary/10 rounded-xl">
+                <p className="text-slate-700">
+                  <strong>{suburb.name}</strong> is an affluent area where buyers expect premium marketing.
+                  Our <strong>Prestige package</strong> is popular here and includes twilight and drone photography.
+                </p>
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -572,6 +612,61 @@ export default async function SuburbPage({
                 </div>
               )}
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Photography Conditions - shows when weather data available */}
+      {suburb.annualSunnyDays && (
+        <section className="py-16 px-6 bg-soft-grey">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-8">Photography Conditions in {suburb.name}</h2>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              <div className="bg-white rounded-xl p-6 text-center">
+                <div className="text-4xl font-black text-primary mb-2">{suburb.annualSunnyDays}</div>
+                <div className="text-slate-600">Clear Sky Days/Year</div>
+                <p className="text-sm text-slate-500 mt-2">Ideal for property photography</p>
+              </div>
+              {suburb.goldenHourStart && (
+                <div className="bg-white rounded-xl p-6 text-center">
+                  <div className="text-3xl font-black text-primary mb-2">{suburb.goldenHourStart}</div>
+                  <div className="text-slate-600">Golden Hour Start</div>
+                  <p className="text-sm text-slate-500 mt-2">Best natural lighting</p>
+                </div>
+              )}
+              {suburb.twilightDuration && (
+                <div className="bg-white rounded-xl p-6 text-center">
+                  <div className="text-4xl font-black text-primary mb-2">{suburb.twilightDuration} min</div>
+                  <div className="text-slate-600">Twilight Window</div>
+                  <p className="text-sm text-slate-500 mt-2">Usable twilight shooting time</p>
+                </div>
+              )}
+            </div>
+
+            {suburb.bestMonthsPhotography && (
+              <div className="bg-white rounded-xl p-6 mb-8">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary">calendar_month</span>
+                  <div>
+                    <p className="font-semibold text-navy-900 mb-1">Best Months for Photography</p>
+                    <p className="text-slate-700">{suburb.bestMonthsPhotography}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {suburb.photographySeasonTip && (
+              <div className="bg-white rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary">tips_and_updates</span>
+                  <div>
+                    <p className="font-semibold text-navy-900 mb-1">Local Tip</p>
+                    <p className="text-slate-700">{suburb.photographySeasonTip}</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
       )}

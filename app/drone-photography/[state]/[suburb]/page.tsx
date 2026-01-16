@@ -262,6 +262,74 @@ export default async function SuburbDronePhotographyPage({
           </div>
         </section>
 
+        {/* Weather Conditions Widget - shows when data available */}
+        {suburb.droneFlightRating && (
+          <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">Drone Flying Conditions in {suburb.name}</h2>
+
+              <div className="flex flex-wrap items-center gap-4 mb-8">
+                <div className={`px-6 py-3 rounded-full font-bold text-lg ${
+                  suburb.droneFlightRating === 'excellent' ? 'bg-green-100 text-green-800' :
+                  suburb.droneFlightRating === 'good' ? 'bg-blue-100 text-blue-800' :
+                  suburb.droneFlightRating === 'moderate' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {suburb.droneFlightRating.toUpperCase()} Flying Conditions
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8 mb-8">
+                {suburb.lowWindDays && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.lowWindDays}</div>
+                    <div className="text-slate-600">Low Wind Days/Year</div>
+                    <p className="text-sm text-slate-500 mt-2">Days with wind under 20km/h</p>
+                  </div>
+                )}
+                {suburb.annualSunnyDays && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.annualSunnyDays}</div>
+                    <div className="text-slate-600">Clear Sky Days/Year</div>
+                    <p className="text-sm text-slate-500 mt-2">Ideal lighting for aerial shots</p>
+                  </div>
+                )}
+                {suburb.avgWindSpeedKmh && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-4xl font-black text-navy-900 mb-2">{suburb.avgWindSpeedKmh.toString()} km/h</div>
+                    <div className="text-slate-600">Average Wind Speed</div>
+                    <p className="text-sm text-slate-500 mt-2">Annual average</p>
+                  </div>
+                )}
+              </div>
+
+              {suburb.droneSeasonNotes && (
+                <div className="bg-soft-grey rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">tips_and_updates</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Local Tip</p>
+                      <p className="text-slate-700">{suburb.droneSeasonNotes}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.droneRestrictions && (
+                <div className="mt-4 bg-amber-50 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-amber-600">warning</span>
+                    <div>
+                      <p className="font-semibold text-amber-800 mb-1">Airspace Note</p>
+                      <p className="text-amber-700">{suburb.droneRestrictions}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
           <section className="py-16 px-6 bg-white">
             <div className="max-w-7xl mx-auto">
@@ -316,6 +384,31 @@ export default async function SuburbDronePhotographyPage({
                   <p>Drone photography is ideal for {suburb.name} properties with large land, pools, outdoor entertaining areas, or proximity to beaches, parks, and local amenities. It's also essential for waterfront properties and prestige listings.</p>
                 </div>
               </details>
+
+              {/* Weather-aware FAQ - shows when data available */}
+              {suburb.droneFlightRating && suburb.lowWindDays && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>What are the typical drone flying conditions in {suburb.name}?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>{suburb.name} has {suburb.droneFlightRating} drone flying conditions with {suburb.lowWindDays} low-wind days per year. {suburb.droneSeasonNotes || 'Our CASA-certified pilots monitor conditions before each shoot and will reschedule free of charge if weather is unsuitable.'}</p>
+                  </div>
+                </details>
+              )}
+
+              {(suburb.droneFlightRating === 'moderate' || suburb.droneFlightRating === 'challenging') && (
+                <details className="group bg-white rounded-lg">
+                  <summary className="flex items-center justify-between cursor-pointer p-6 font-semibold text-lg">
+                    <span>Is drone photography worth it in {suburb.name} given the wind conditions?</span>
+                    <span className="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+                  </summary>
+                  <div className="px-6 pb-6 text-slate-700">
+                    <p>While {suburb.name} can experience higher winds at times, we still recommend drone photography for properties with pools, large gardens, or waterfront positions. We schedule shoots during optimal windows and our flexible booking policy means free rescheduling if conditions are unsuitable.</p>
+                  </div>
+                </details>
+              )}
             </div>
           </div>
         </section>

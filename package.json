@@ -12,7 +12,11 @@
     "db:migrate": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:studio": "prisma studio",
-    "refresh-suburbs": "tsx scripts/data-ingestion/postcode-suburb.ts"
+    "refresh-suburbs": "tsx scripts/data-ingestion/postcode-suburb.ts",
+    "enrich-suburbs": "tsx scripts/enrich-suburbs.ts",
+    "enrich:census": "tsx scripts/data-ingestion/census-enrichment.ts",
+    "enrich:bom": "tsx scripts/data-ingestion/bom-enrichment.ts",
+    "enrich:priority": "tsx scripts/data-ingestion/select-priority-suburbs.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
