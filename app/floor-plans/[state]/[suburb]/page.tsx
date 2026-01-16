@@ -332,6 +332,80 @@ export default async function SuburbFloorPlansPage({
           </section>
         )}
 
+        {/* Buyer Demographics - Census Data */}
+        {(suburb.familyHouseholds || suburb.medianAge || suburb.population) && (
+          <section className="py-16 px-6 bg-soft-grey">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">Who's Buying in {suburb.name}?</h2>
+              <p className="text-slate-600 mb-8">Understanding the local buyer profile helps tailor your floor plan presentation.</p>
+
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                {suburb.population && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.population.toLocaleString()}</div>
+                    <div className="text-slate-600">Population</div>
+                  </div>
+                )}
+                {suburb.medianAge && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.medianAge}</div>
+                    <div className="text-slate-600">Median Age</div>
+                  </div>
+                )}
+                {suburb.familyHouseholds && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.familyHouseholds.toLocaleString()}</div>
+                    <div className="text-slate-600">Family Households</div>
+                  </div>
+                )}
+                {suburb.singlePersonHousehold && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.singlePersonHousehold.toLocaleString()}</div>
+                    <div className="text-slate-600">Single Person Households</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Buyer-focused insights */}
+              {suburb.familyHouseholds && suburb.singlePersonHousehold && Number(suburb.familyHouseholds) > Number(suburb.singlePersonHousehold) * 2 && (
+                <div className="bg-white rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">family_restroom</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Family-Focused Market</p>
+                      <p className="text-slate-700">{suburb.name} is predominantly a family area. Floor plans should clearly show children's bedrooms, living spaces, and outdoor areas. Highlighting room dimensions helps families visualize furniture placement.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.singlePersonHousehold && suburb.familyHouseholds && Number(suburb.singlePersonHousehold) > Number(suburb.familyHouseholds) && (
+                <div className="bg-white rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">person</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Singles & Professional Market</p>
+                      <p className="text-slate-700">{suburb.name} has a high proportion of single-person households. Floor plans should emphasize efficient layouts, study/home office spaces, and storage solutions.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.bedroomDistribution && (
+                <div className="bg-white rounded-xl p-6 mt-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">bed</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Bedroom Distribution</p>
+                      <p className="text-slate-700">{suburb.bedroomDistribution}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
           <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">

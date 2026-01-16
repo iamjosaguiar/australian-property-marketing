@@ -671,6 +671,87 @@ export default async function SuburbPage({
         </section>
       )}
 
+      {/* Community Profile - Census Demographics */}
+      {(suburb.population || suburb.medianAge || suburb.familyHouseholds) && (
+        <section className="py-16 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-black mb-8">{suburb.name} Community Profile</h2>
+            <p className="text-slate-600 mb-8">Understanding your buyer helps us capture what matters most in your property photos.</p>
+
+            <div className="grid md:grid-cols-4 gap-6 mb-8">
+              {suburb.population && (
+                <div className="bg-soft-grey rounded-xl p-6 text-center">
+                  <div className="text-3xl font-black text-primary mb-2">{suburb.population.toLocaleString()}</div>
+                  <div className="text-slate-600">Population</div>
+                </div>
+              )}
+              {suburb.medianAge && (
+                <div className="bg-soft-grey rounded-xl p-6 text-center">
+                  <div className="text-3xl font-black text-primary mb-2">{suburb.medianAge}</div>
+                  <div className="text-slate-600">Median Age</div>
+                </div>
+              )}
+              {suburb.familyHouseholds && (
+                <div className="bg-soft-grey rounded-xl p-6 text-center">
+                  <div className="text-3xl font-black text-primary mb-2">{suburb.familyHouseholds.toLocaleString()}</div>
+                  <div className="text-slate-600">Family Households</div>
+                </div>
+              )}
+              {suburb.tenureProfile && (
+                <div className="bg-soft-grey rounded-xl p-6 text-center">
+                  <div className="text-xl font-black text-primary mb-2 capitalize">{suburb.tenureProfile.replace('-', ' ')}</div>
+                  <div className="text-slate-600">Market Profile</div>
+                </div>
+              )}
+            </div>
+
+            {/* Dwelling breakdown */}
+            {suburb.dwellingTypeRatio && (
+              <div className="bg-soft-grey rounded-xl p-6 mb-6">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary">home</span>
+                  <div>
+                    <p className="font-semibold text-navy-900 mb-1">Property Mix</p>
+                    <p className="text-slate-700">{suburb.dwellingTypeRatio}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Photography approach based on demographics */}
+            {suburb.medianAge && Number(suburb.medianAge) >= 35 && suburb.familyHouseholds && (
+              <div className="bg-soft-grey rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary">camera_enhance</span>
+                  <div>
+                    <p className="font-semibold text-navy-900 mb-1">Photography Approach</p>
+                    <p className="text-slate-700">
+                      {suburb.name}'s family-oriented demographic values spacious living areas, outdoor spaces, and proximity to schools.
+                      Our photographers emphasize these lifestyle elements that resonate with local buyers.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {suburb.medianAge && Number(suburb.medianAge) < 35 && (
+              <div className="bg-soft-grey rounded-xl p-6">
+                <div className="flex items-start gap-3">
+                  <span className="material-symbols-outlined text-primary">camera_enhance</span>
+                  <div>
+                    <p className="font-semibold text-navy-900 mb-1">Photography Approach</p>
+                    <p className="text-slate-700">
+                      {suburb.name}'s younger demographic appreciates modern finishes, entertaining spaces, and lifestyle amenities.
+                      Our photographers capture these aspirational elements that drive enquiries from young professionals.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Nearby Suburbs */}
       {suburb.nearbySuburbsFrom.length > 0 && (
         <section className="py-16 px-6 bg-soft-grey">

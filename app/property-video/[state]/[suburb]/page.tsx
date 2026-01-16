@@ -292,7 +292,88 @@ export default async function SuburbPropertyVideoPage({
           </section>
         )}
 
-        <section className="py-20 px-6 bg-white" id="packages">
+        {/* Community Demographics */}
+        {(suburb.population || suburb.medianAge || suburb.primaryDwellingType) && (
+          <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">{suburb.name} Demographics</h2>
+              <p className="text-slate-600 mb-8">Understanding your audience helps create video content that connects with buyers.</p>
+
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                {suburb.population && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.population.toLocaleString()}</div>
+                    <div className="text-slate-600">Population</div>
+                  </div>
+                )}
+                {suburb.medianAge && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.medianAge}</div>
+                    <div className="text-slate-600">Median Age</div>
+                  </div>
+                )}
+                {suburb.primaryDwellingType && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2 capitalize">{suburb.primaryDwellingType}s</div>
+                    <div className="text-slate-600">Primary Property Type</div>
+                  </div>
+                )}
+                {suburb.familyHouseholds && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.familyHouseholds.toLocaleString()}</div>
+                    <div className="text-slate-600">Family Households</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Video style recommendations */}
+              {suburb.dwellingTypeRatio && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">home</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Property Mix</p>
+                      <p className="text-slate-700">{suburb.dwellingTypeRatio}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.primaryDwellingType === 'house' && suburb.avgBedrooms && Number(suburb.avgBedrooms) >= 4 && (
+                <div className="bg-soft-grey rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">movie</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Video Approach</p>
+                      <p className="text-slate-700">
+                        {suburb.name}'s larger family homes (avg {suburb.avgBedrooms.toString()} bedrooms) benefit from our
+                        <strong> Premium or Luxury video packages</strong>. Longer runtime allows proper showcase of multiple
+                        living areas, outdoor entertaining, and neighbourhood lifestyle.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.primaryDwellingType === 'unit' && (
+                <div className="bg-soft-grey rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">movie</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Video Approach</p>
+                      <p className="text-slate-700">
+                        For {suburb.name} apartments, video showcases spatial flow and natural light better than photos alone.
+                        Include drone footage of the building, views, and proximity to amenities in our <strong>Premium package</strong>.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        <section className="py-20 px-6 bg-soft-grey" id="packages">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-black text-center mb-4">Video Packages for {suburb.name}</h2>
             <p className="text-center text-slate-600 mb-12 max-w-2xl mx-auto">

@@ -330,8 +330,87 @@ export default async function SuburbDronePhotographyPage({
           </section>
         )}
 
-        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+        {/* Property Insights - Census Data */}
+        {(suburb.primaryDwellingType || suburb.medianPrice || suburb.population) && (
           <section className="py-16 px-6 bg-white">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">{suburb.name} Property Insights</h2>
+              <p className="text-slate-600 mb-8">Understanding the local property market helps us capture what matters most to buyers.</p>
+
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                {suburb.primaryDwellingType && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2 capitalize">{suburb.primaryDwellingType}s</div>
+                    <div className="text-slate-600">Primary Property Type</div>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {suburb.primaryDwellingType === 'house' ? 'Ideal for aerial coverage' : 'Building context shots valuable'}
+                    </p>
+                  </div>
+                )}
+                {suburb.medianPrice && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2">${suburb.medianPriceFormatted}</div>
+                    <div className="text-slate-600">Median Property Price</div>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {Number(suburb.medianPrice) >= 1500000 ? 'Premium market - drone recommended' : 'Competitive market'}
+                    </p>
+                  </div>
+                )}
+                {suburb.population && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2">{suburb.population.toLocaleString()}</div>
+                    <div className="text-slate-600">Population</div>
+                    <p className="text-sm text-slate-500 mt-2">Census 2021</p>
+                  </div>
+                )}
+                {suburb.avgBedrooms && (
+                  <div className="bg-soft-grey rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2">{suburb.avgBedrooms.toString()}</div>
+                    <div className="text-slate-600">Average Bedrooms</div>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {Number(suburb.avgBedrooms) >= 4 ? 'Larger properties' : 'Compact properties'}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Dwelling type breakdown */}
+              {suburb.dwellingTypeRatio && (
+                <div className="bg-soft-grey rounded-xl p-6 mb-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">home</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Property Mix</p>
+                      <p className="text-slate-700">{suburb.dwellingTypeRatio}</p>
+                      {suburb.primaryDwellingType === 'house' && (
+                        <p className="text-sm text-slate-500 mt-2">Houses benefit significantly from aerial photography, showcasing land size, roof condition, pool, and outdoor areas.</p>
+                      )}
+                      {suburb.primaryDwellingType === 'unit' && (
+                        <p className="text-sm text-slate-500 mt-2">For apartments, drone shots capture building position, views, proximity to amenities, and neighbourhood context.</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Income-based recommendation */}
+              {suburb.incomeQuartile === 'high' && (
+                <div className="bg-primary/10 rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">trending_up</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Premium Market</p>
+                      <p className="text-slate-700">{suburb.name} is an affluent area where buyers expect comprehensive marketing. Drone photography is highly recommended to showcase properties to their full potential and compete effectively in this market.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
+        {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
+          <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-3xl font-black mb-8">Also Serving Nearby Areas</h2>
               <p className="text-slate-600 mb-8">Looking for drone photography near {suburb.name}? We also serve:</p>

@@ -354,6 +354,83 @@ export default async function SuburbVirtualStagingPage({
           </section>
         )}
 
+        {/* Demographics & Market Profile */}
+        {(suburb.medianAge || suburb.population || suburb.familyHouseholds || suburb.primaryDwellingType) && (
+          <section className="py-16 px-6 bg-soft-grey">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-3xl font-black mb-8">{suburb.name} Buyer Demographics</h2>
+              <p className="text-slate-600 mb-8">Tailoring virtual staging to your target buyer increases engagement and enquiries.</p>
+
+              <div className="grid md:grid-cols-4 gap-6 mb-8">
+                {suburb.medianAge && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.medianAge}</div>
+                    <div className="text-slate-600">Median Age</div>
+                    <p className="text-sm text-slate-500 mt-2">
+                      {Number(suburb.medianAge) < 35 ? 'Young professionals' : Number(suburb.medianAge) < 45 ? 'Established families' : 'Mature demographic'}
+                    </p>
+                  </div>
+                )}
+                {suburb.population && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-3xl font-black text-primary mb-2">{suburb.population.toLocaleString()}</div>
+                    <div className="text-slate-600">Population</div>
+                  </div>
+                )}
+                {suburb.primaryDwellingType && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2 capitalize">{suburb.primaryDwellingType}s</div>
+                    <div className="text-slate-600">Primary Property Type</div>
+                  </div>
+                )}
+                {suburb.medianPrice && (
+                  <div className="bg-white rounded-xl p-6 text-center">
+                    <div className="text-2xl font-black text-primary mb-2">${suburb.medianPriceFormatted}</div>
+                    <div className="text-slate-600">Median Price</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Style recommendations based on demographics */}
+              {suburb.medianAge && Number(suburb.medianAge) < 35 && (
+                <div className="bg-white rounded-xl p-6 mb-4">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">style</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Young Professional Style</p>
+                      <p className="text-slate-700">With a median age of {suburb.medianAge}, {suburb.name} attracts younger buyers. We recommend <strong>contemporary, minimalist styling</strong> with clean lines, modern furniture, and Instagram-worthy aesthetics.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.medianAge && Number(suburb.medianAge) >= 35 && Number(suburb.medianAge) < 50 && suburb.familyHouseholds && (
+                <div className="bg-white rounded-xl p-6 mb-4">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">style</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Family-Oriented Style</p>
+                      <p className="text-slate-700">{suburb.name}'s demographic (median age {suburb.medianAge}) suits <strong>warm, liveable family staging</strong>. Include practical elements like study nooks, comfortable living areas, and child-friendly spaces.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {suburb.coupleNoChildren && suburb.familyHouseholds && Number(suburb.coupleNoChildren) > Number(suburb.familyHouseholds) * 0.5 && (
+                <div className="bg-white rounded-xl p-6">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-primary">favorite</span>
+                    <div>
+                      <p className="font-semibold text-navy-900 mb-1">Couples Market</p>
+                      <p className="text-slate-700">{suburb.name} has a significant proportion of couples without children. Staging should emphasize <strong>sophisticated entertaining spaces</strong>, home offices, and lifestyle amenities.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
+
         {suburb.nearbySuburbsFrom && suburb.nearbySuburbsFrom.length > 0 && (
           <section className="py-16 px-6 bg-soft-grey">
             <div className="max-w-7xl mx-auto">
