@@ -120,14 +120,90 @@ function parseXlsxFile(filePath: string): PriceRecord[] {
         continue;
       }
 
-      console.log(`  Found headers at row ${headerRow}: suburb=${suburbCol}, median=${medianCol}, count=${countCol}`);
+      // For Victorian quarterly format: data starts after multi-row headers
+      // Find the first row with actual suburb data (all caps suburb name)
+      let dataStartRow = headerRow + 1;
+      for (let i = headerRow + 1; i < Math.min(headerRow + 10, data.length); i++) {
+        const row = data[i];
+        if (row && row[suburbCol]) {
+          const val = String(row[suburbCol]).trim();
+          // Check if it looks like a suburb name (not empty, not a header continuation)
+          if (val && val.length > 1 && !val.includes('-') && val !== val.toLowerCase()) {
+            // Also check if there's a numeric value in subsequent columns
+            for (let j = 1; j < row.length; j++) {
+              const cellVal = row[j];
+              if (cellVal && !isNaN(parseFloat(String(cellVal).replace(/[,$]/g, '')))) {
+                dataStartRow = i;
+                break;
+              }
+            }
+            if (dataStartRow === i) break;
+          }
+        }
+      }
+
+      // If no explicit median column found, look for the most recent price column
+      // Victorian format: columns alternate between price and change indicators
+      if (medianCol < 0) {
+        // Find columns with numeric price-like values in the first data row
+        const sampleRow = data[dataStartRow];
+        if (sampleRow) {
+          const priceColumns: number[] = [];
+          for (let j = 1; j < sampleRow.length; j++) {
+            const val = sampleRow[j];
+            if (val) {
+              const numVal = parseFloat(String(val).replace(/[,$]/g, ''));
+              // Looks like a price if it's a large number (> 100000)
+              if (!isNaN(numVal) && numVal > 100000) {
+                priceColumns.push(j);
+              }
+            }
+          }
+          // Use the last price column (most recent quarter)
+          if (priceColumns.length > 0) {
+            medianCol = priceColumns[priceColumns.length - 1];
+            console.log(`  Auto-detected price column: ${medianCol} (most recent of ${priceColumns.length} price columns)`);
+          }
+        }
+      }
+
+      // Find sales count column (usually labeled "No. of Sales" for the most recent period)
+      if (countCol < 0) {
+        const sampleRow = data[dataStartRow];
+        if (sampleRow && medianCol >= 0) {
+          // Look for a column after median that has small integers (sales counts)
+          for (let j = medianCol + 1; j < sampleRow.length; j++) {
+            const val = sampleRow[j];
+            if (val) {
+              const numVal = parseInt(String(val));
+              if (!isNaN(numVal) && numVal > 0 && numVal < 1000) {
+                countCol = j;
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      console.log(`  Data starts at row ${dataStartRow}: suburb=${suburbCol}, median=${medianCol}, count=${countCol}`);
+
+      if (medianCol < 0) {
+        console.log(`  ⚠️ Could not find price column`);
+        continue;
+      }
 
       // Process data rows
-      for (let i = headerRow + 1; i < data.length; i++) {
+      for (let i = dataStartRow; i < data.length; i++) {
         const row = data[i];
         if (!row || !row[suburbCol]) continue;
 
         const suburb = String(row[suburbCol]).trim();
+
+        // Skip non-suburb rows (totals, headers, etc.)
+        if (!suburb || suburb.toLowerCase().includes('total') || suburb.toLowerCase().includes('metropolitan')) {
+          continue;
+        }
+
         const medianValue = medianCol >= 0 ? row[medianCol] : null;
         const countValue = countCol >= 0 ? row[countCol] : null;
 
