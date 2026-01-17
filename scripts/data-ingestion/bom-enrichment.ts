@@ -40,8 +40,11 @@ const prisma = new PrismaClient({ adapter });
 // ============================================
 
 const CONFIG = {
-  // Only process suburbs with priority > 0
-  minPriority: 1,
+  // Process ALL suburbs (set to 0 to include all)
+  minPriority: 0,
+
+  // Skip suburbs that already have weather data
+  skipExisting: true,
 };
 
 // ============================================
@@ -138,15 +141,23 @@ async function enrichSuburb(suburb: {
 // ============================================
 
 async function main() {
-  console.log('Starting BOM weather data enrichment...\n');
-  console.log(`Min priority: ${CONFIG.minPriority}\n`);
+  console.log('╔════════════════════════════════════════╗');
+  console.log('║  BOM WEATHER DATA ENRICHMENT           ║');
+  console.log('╚════════════════════════════════════════╝\n');
+  console.log(`Skip existing: ${CONFIG.skipExisting}`);
 
-  // Get priority suburbs
+  // Build query - optionally skip suburbs that already have weather data
+  const whereClause: any = { active: true };
+  if (CONFIG.minPriority > 0) {
+    whereClause.priority = { gte: CONFIG.minPriority };
+  }
+  if (CONFIG.skipExisting) {
+    whereClause.weatherUpdated = null;
+  }
+
+  // Get suburbs to process
   const suburbs = await prisma.suburb.findMany({
-    where: {
-      priority: { gte: CONFIG.minPriority },
-      active: true,
-    },
+    where: whereClause,
     select: {
       id: true,
       slug: true,
@@ -155,17 +166,18 @@ async function main() {
       latitude: true,
       longitude: true,
     },
-    orderBy: { priority: 'desc' },
+    orderBy: [{ state: 'asc' }, { name: 'asc' }],
   });
 
-  console.log(`Found ${suburbs.length} priority suburbs to enrich\n`);
+  console.log(`Found ${suburbs.length} suburbs to enrich\n`);
 
   if (suburbs.length === 0) {
-    console.log('No suburbs to enrich. Run select-priority-suburbs.ts first.');
+    console.log('No suburbs to enrich (all may already have weather data).');
     return;
   }
 
   // Group suburbs by nearest station to minimize lookups
+  console.log('Grouping suburbs by nearest weather station...');
   const stationGroups = new Map<string, typeof suburbs>();
 
   for (const suburb of suburbs) {
@@ -187,6 +199,7 @@ async function main() {
   let successCount = 0;
   let errorCount = 0;
   let processed = 0;
+  const startTime = Date.now();
 
   // Process by station group
   for (const [stationId, stationSuburbs] of stationGroups) {
@@ -196,32 +209,45 @@ async function main() {
       Number(station.longitude)
     );
 
-    console.log(`\n--- Station: ${stationResult?.station.name || 'Unknown'} (${stationSuburbs.length} suburbs) ---`);
+    console.log(`\n--- ${stationResult?.station.name || 'Unknown'} (${stationSuburbs.length} suburbs) ---`);
 
     for (const suburb of stationSuburbs) {
       processed++;
-      const progress = `[${processed}/${suburbs.length}]`;
+      const pct = Math.round((processed / suburbs.length) * 100);
 
-      process.stdout.write(`${progress} ${suburb.name}... `);
+      process.stdout.write(`[${pct}%] ${suburb.name}... `);
 
       const success = await enrichSuburb(suburb);
 
       if (success) {
         successCount++;
-        console.log('✓');
+        process.stdout.write('✓\n');
       } else {
         errorCount++;
-        console.log('✗');
+        process.stdout.write('✗\n');
       }
+    }
+
+    // Progress update after each station group
+    const elapsed = (Date.now() - startTime) / 1000;
+    const rate = processed / elapsed;
+    const remaining = rate > 0 ? Math.round((suburbs.length - processed) / rate) : 0;
+    if (processed % 1000 < stationSuburbs.length) {
+      console.log(`  Progress: ${processed}/${suburbs.length} - ETA: ${Math.round(remaining / 60)}m ${remaining % 60}s`);
     }
   }
 
+  const totalTime = Math.round((Date.now() - startTime) / 1000);
+
   // Summary
-  console.log('\n=== BOM Enrichment Summary ===');
+  console.log('\n========================================');
+  console.log('BOM ENRICHMENT SUMMARY');
+  console.log('========================================');
   console.log(`✓ Successfully enriched: ${successCount} suburbs`);
   if (errorCount > 0) {
     console.log(`✗ Errors: ${errorCount} suburbs`);
   }
+  console.log(`Time: ${Math.round(totalTime / 60)}m ${totalTime % 60}s`);
 
   // Verify drone ratings distribution
   const droneRatings = await prisma.suburb.groupBy({

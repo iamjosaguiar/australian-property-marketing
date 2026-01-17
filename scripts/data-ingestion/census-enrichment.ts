@@ -50,8 +50,11 @@ const CONFIG = {
   // Batch size for database updates
   batchSize: 50,
 
-  // Only process suburbs with priority > 0
-  minPriority: 1,
+  // Process ALL suburbs (set to 0 to include all)
+  minPriority: 0,
+
+  // Skip suburbs that already have census data
+  skipExisting: true,
 };
 
 // ============================================
@@ -282,16 +285,24 @@ async function enrichSuburb(suburb: {
 // ============================================
 
 async function main() {
-  console.log('Starting Census data enrichment...\n');
+  console.log('╔════════════════════════════════════════╗');
+  console.log('║  CENSUS DATA ENRICHMENT                ║');
+  console.log('╚════════════════════════════════════════╝\n');
   console.log(`Mode: ${CONFIG.useMockData ? 'MOCK DATA' : 'LIVE API'}`);
-  console.log(`Min priority: ${CONFIG.minPriority}\n`);
+  console.log(`Skip existing: ${CONFIG.skipExisting}`);
 
-  // Get priority suburbs
+  // Build query - optionally skip suburbs that already have census data
+  const whereClause: any = { active: true };
+  if (CONFIG.minPriority > 0) {
+    whereClause.priority = { gte: CONFIG.minPriority };
+  }
+  if (CONFIG.skipExisting) {
+    whereClause.censusYear = null;
+  }
+
+  // Get suburbs to process
   const suburbs = await prisma.suburb.findMany({
-    where: {
-      priority: { gte: CONFIG.minPriority },
-      active: true,
-    },
+    where: whereClause,
     select: {
       id: true,
       slug: true,
@@ -300,34 +311,52 @@ async function main() {
       latitude: true,
       longitude: true,
     },
-    orderBy: { priority: 'desc' },
+    orderBy: [{ state: 'asc' }, { name: 'asc' }],
   });
 
-  console.log(`Found ${suburbs.length} priority suburbs to enrich\n`);
+  console.log(`\nFound ${suburbs.length} suburbs to enrich\n`);
 
   if (suburbs.length === 0) {
-    console.log('No suburbs to enrich. Run select-priority-suburbs.ts first.');
+    console.log('No suburbs to enrich (all may already have census data).');
     return;
   }
 
   let successCount = 0;
   let errorCount = 0;
+  const startTime = Date.now();
+  let currentState = '';
 
   // Process suburbs
   for (let i = 0; i < suburbs.length; i++) {
     const suburb = suburbs[i];
-    const progress = `[${i + 1}/${suburbs.length}]`;
 
-    process.stdout.write(`${progress} Enriching ${suburb.name} (${suburb.state})... `);
+    // Show state header when state changes
+    if (suburb.state !== currentState) {
+      currentState = suburb.state;
+      const stateSuburbs = suburbs.filter(s => s.state === currentState).length;
+      console.log(`\n--- ${currentState} (${stateSuburbs} suburbs) ---`);
+    }
+
+    const pct = Math.round((i / suburbs.length) * 100);
+    const elapsed = (Date.now() - startTime) / 1000;
+    const rate = i > 0 ? i / elapsed : 0;
+    const remaining = rate > 0 ? Math.round((suburbs.length - i) / rate) : 0;
+
+    process.stdout.write(`[${pct}%] ${suburb.name}... `);
 
     const success = await enrichSuburb(suburb);
 
     if (success) {
       successCount++;
-      console.log('✓');
+      process.stdout.write('✓\n');
     } else {
       errorCount++;
-      console.log('✗');
+      process.stdout.write('✗\n');
+    }
+
+    // Progress update every 500 suburbs
+    if ((i + 1) % 500 === 0) {
+      console.log(`\n  Progress: ${i + 1}/${suburbs.length} (${pct}%) - ETA: ${Math.round(remaining / 60)}m ${remaining % 60}s\n`);
     }
 
     // Rate limiting
@@ -336,12 +365,17 @@ async function main() {
     }
   }
 
+  const totalTime = Math.round((Date.now() - startTime) / 1000);
+
   // Summary
-  console.log('\n=== Census Enrichment Summary ===');
+  console.log('\n========================================');
+  console.log('CENSUS ENRICHMENT SUMMARY');
+  console.log('========================================');
   console.log(`✓ Successfully enriched: ${successCount} suburbs`);
   if (errorCount > 0) {
     console.log(`✗ Errors: ${errorCount} suburbs`);
   }
+  console.log(`Time: ${Math.round(totalTime / 60)}m ${totalTime % 60}s`);
 
   // Verify
   const enriched = await prisma.suburb.count({
