@@ -30,10 +30,10 @@ export default function Credibility() {
                   <span>Andy</span>
                   <span className={styles.imageSubtitle}>Founder</span>
                 </div>
-              </div>
-              <div className={styles.badge}>
-                <span className={styles.badgeNumber}>11+</span>
-                <span className={styles.badgeText}>Years in<br/>Real Estate</span>
+                <div className={styles.badge}>
+                  <span className={styles.badgeNumber}>11+</span>
+                  <span className={styles.badgeText}>Years in<br/>Real Estate</span>
+                </div>
               </div>
             </div>
           </div>
