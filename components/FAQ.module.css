@@ -25,13 +25,13 @@
 .list.visible .item { opacity: 1; transform: translateX(0); }
 
 .item {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
   opacity: 0;
   transform: translateX(20px);
   transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 
-.item:first-child { border-top: 1px solid rgba(0, 0, 0, 0.06); }
+.item:first-child { border-top: 1px solid rgba(var(--black-rgb), 0.06); }
 
 .question {
   width: 100%;

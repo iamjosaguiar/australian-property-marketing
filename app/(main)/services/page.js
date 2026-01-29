@@ -3,33 +3,33 @@ import styles from './page.module.css'
 
 export const metadata = {
   title: 'Services | Australian Property Marketing',
-  description: 'Marketing services for independent real estate agencies. Lead generation, conversion systems, and creative production.',
+  description: 'Marketing services for real estate agents, buyers agents, property investors, and builders across Australia.',
 }
 
-const services = [
+const verticals = [
   {
-    title: 'Profitability Audit',
-    price: '$5,000',
-    description: 'Before we work together, we show you exactly where your marketing money is going. And where it is leaking.',
-    features: ['Marketing spend analysis', 'Lead source audit', 'Conversion rate breakdown', 'Profit leak identification', '90-day action plan', 'Strategy session'],
-    href: '/audit',
-    cta: 'Book Your Audit'
+    title: 'Real Estate Agents',
+    headline: 'Marketing That Wins Listings',
+    copy: 'You are competing against agents with bigger budgets and better brand recognition. We level the playing field. Lead generation that targets genuine sellers. Conversion systems that stop leads falling through the cracks. Creative that positions you as the obvious choice.',
+    subtext: 'For independent agents and boutique agencies who want more listings without wasting money on marketing that does not convert.',
   },
   {
-    title: 'Full Service Retainer',
-    price: 'From $10,000/mo',
-    description: 'We take full ownership of your agency\'s marketing. Lead generation. Conversion optimisation. Creative production.',
-    features: ['Lead generation campaigns', 'Conversion systems', 'Creative production', 'Monthly reporting', 'Dedicated strategist', 'Quarterly reviews'],
-    href: '/services/retainer',
-    cta: 'Learn More'
+    title: 'Buyers Agents',
+    headline: 'Attract Qualified Buyers Ready to Act',
+    copy: 'Your clients are not browsing. They are ready to buy and they need someone who can find what the market cannot. We build campaigns that attract serious buyers with capital ready to deploy. No tyre-kickers. No dreamers. Just qualified leads who need your expertise.',
+    subtext: 'For buyers agents who want a consistent pipeline of high-intent clients.',
   },
   {
-    title: 'Creative Services',
-    price: 'Project-based',
-    description: 'Professional creative for real estate. Produced in-house. Delivered fast.',
-    features: ['Agent photography', 'Property photography', 'Video production', 'Drone and aerial', 'Content creation', 'Brand design'],
-    href: '/services/creative',
-    cta: 'Get a Quote'
+    title: 'Property Investors',
+    headline: 'Connect With Investors Actively Looking',
+    copy: 'Property investors are researching online before they ever pick up the phone. We make sure they find you first. Targeted campaigns that reach investors at the right moment. Lead qualification that filters out the curious from the committed.',
+    subtext: 'For agencies and advisors who serve the investor market and want higher quality leads.',
+  },
+  {
+    title: 'Builders',
+    headline: 'Fill Your Pipeline With Build-Ready Clients',
+    copy: 'Every quote you write for someone who is not serious costs you time and money. We generate leads from people who have land, finance, and intent. Your sales team spends less time qualifying and more time closing.',
+    subtext: 'For builders and construction companies who want leads that convert to contracts.',
   }
 ]
 
@@ -47,22 +47,15 @@ export default function ServicesPage() {
       <section className={styles.grid}>
         <div className="container">
           <div className={styles.serviceCards}>
-            {services.map((service, index) => (
+            {verticals.map((vertical, index) => (
               <div key={index} className={styles.serviceCard}>
                 <div className={styles.cardHeader}>
-                  <h2>{service.title}</h2>
-                  <span className={styles.price}>{service.price}</span>
+                  <span className={styles.verticalLabel}>{vertical.title}</span>
+                  <h2>{vertical.headline}</h2>
                 </div>
-                <p className={styles.cardDesc}>{service.description}</p>
-                <ul className={styles.features}>
-                  {service.features.map((feature, i) => (
-                    <li key={i}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link href={service.href} className={styles.cardCta}>{service.cta}</Link>
+                <p className={styles.cardDesc}>{vertical.copy}</p>
+                <p className={styles.cardSubtext}>{vertical.subtext}</p>
+                <Link href="/contact" className={styles.cardCta}>Book Your Discovery Call</Link>
               </div>
             ))}
           </div>

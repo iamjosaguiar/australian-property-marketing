@@ -47,6 +47,7 @@ export default function Credibility() {
               <p>We built this company because we got tired of marketing agencies who could not answer a simple question:</p>
               <blockquote className={styles.quote}>How many listings did your work actually generate?</blockquote>
               <p>Now we work with independent agencies who want that answer. And who want to make the number bigger.</p>
+              <p>We have sat where you sit. We know the difference between a tyre-kicker and a genuine seller. We know what it costs to lose a listing to an agent with better marketing. That is why we only work with agencies who are serious about fixing the problem.</p>
             </div>
             <div className={styles.signature}>
               <div className={styles.signatureLine}></div>

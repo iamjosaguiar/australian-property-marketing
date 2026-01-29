@@ -37,8 +37,8 @@ export default function Header() {
           </a>
         </nav>
 
-        <Link href="/audit" className={styles.cta}>
-          Book Your Audit
+        <Link href="/contact" className={styles.cta}>
+          Book Your Discovery Call
         </Link>
 
         <button

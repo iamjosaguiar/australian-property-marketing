@@ -9,8 +9,25 @@
   --charcoal: #1a1a1a;
   --charcoal-soft: #2d2d2d;
   --soft-grey: #f8f9fa;
+  --grey-medium: #e8e8e8;
   --warm-white: #fdfcfb;
   --pure-white: #ffffff;
+
+  /* Extended greys for gradients */
+  --grey-600: #4a4a4a;
+  --grey-500: #5a5a5a;
+  --grey-400: #6a6a6a;
+  --grey-300: #7a7a7a;
+
+  /* RGB channels for rgba() usage */
+  --coral-rgb: 240, 92, 62;
+  --black-rgb: 0, 0, 0;
+  --white-rgb: 255, 255, 255;
+
+  /* Common opacity utilities */
+  --text-on-dark: rgba(var(--white-rgb), 0.7);
+  --text-on-dark-muted: rgba(var(--white-rgb), 0.5);
+  --text-on-dark-faint: rgba(var(--white-rgb), 0.6);
 
   /* Typography */
   --font-display: 'Instrument Serif', Georgia, serif;

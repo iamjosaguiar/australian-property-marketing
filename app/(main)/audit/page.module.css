@@ -16,7 +16,7 @@
   right: -10%;
   width: 60%;
   height: 80%;
-  background: radial-gradient(ellipse, rgba(240, 92, 62, 0.08), transparent 70%);
+  background: radial-gradient(ellipse, rgba(var(--coral-rgb), 0.08), transparent 70%);
 }
 
 .heroContent { max-width: 800px; }
@@ -47,10 +47,10 @@
   font-weight: 600;
   border-radius: 8px;
   transition: all 0.4s var(--ease-out-expo);
-  box-shadow: 0 4px 16px rgba(240, 92, 62, 0.3);
+  box-shadow: 0 4px 16px rgba(var(--coral-rgb), 0.3);
 }
 
-.cta:hover { background: var(--coral-dark); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(240, 92, 62, 0.4); }
+.cta:hover { background: var(--coral-dark); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(var(--coral-rgb), 0.4); }
 
 .problem, .included, .process, .investment, .whoFor, .booking { padding: var(--space-2xl) 0; }
 
@@ -74,7 +74,7 @@
   background: var(--pure-white);
   padding: var(--space-xl);
   border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(var(--black-rgb), 0.04);
 }
 
 .includedItem h3 { font-family: var(--font-display); font-size: 1.25rem; color: var(--charcoal); margin-bottom: var(--space-sm); }
@@ -88,7 +88,7 @@
   display: flex;
   gap: var(--space-lg);
   padding: var(--space-lg) 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .processStep:last-child { border-bottom: none; }
@@ -175,7 +175,7 @@
 
 .formGroup input, .formGroup select {
   padding: 0.875rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--black-rgb), 0.1);
   border-radius: 8px;
   font-size: 1rem;
   background: var(--pure-white);
@@ -198,7 +198,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.4s var(--ease-out-expo);
-  box-shadow: 0 4px 16px rgba(240, 92, 62, 0.3);
+  box-shadow: 0 4px 16px rgba(var(--coral-rgb), 0.3);
 }
 
 .submitBtn:hover { background: var(--coral-dark); transform: translateY(-2px); }

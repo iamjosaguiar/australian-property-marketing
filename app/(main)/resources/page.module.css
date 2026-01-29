@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 
-.article:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08); }
+.article:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(var(--black-rgb), 0.08); }
 
 .articleMeta { display: flex; gap: var(--space-md); margin-bottom: var(--space-md); }
 
@@ -33,7 +33,7 @@
   letter-spacing: 0.1em;
   color: var(--coral);
   padding: 0.25rem 0.75rem;
-  background: rgba(240, 92, 62, 0.1);
+  background: rgba(var(--coral-rgb), 0.1);
   border-radius: 100px;
 }
 
@@ -56,7 +56,7 @@
 .newsletterCard { max-width: 600px; margin: 0 auto; text-align: center; }
 
 .newsletterCard h2 { font-family: var(--font-display); font-size: 2.5rem; color: var(--pure-white); margin-bottom: var(--space-md); }
-.newsletterCard p { color: rgba(255, 255, 255, 0.7); font-size: 1.125rem; margin-bottom: var(--space-xl); }
+.newsletterCard p { color: rgba(var(--white-rgb), 0.7); font-size: 1.125rem; margin-bottom: var(--space-xl); }
 
 .newsletterForm { display: flex; gap: var(--space-md); }
 

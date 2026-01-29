@@ -31,8 +31,8 @@ export default function MelbourneLP() {
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> 90-day action plan</li>
           </ul>
           <div className={styles.pricing}>
-            <span className={styles.price}>$5,000 <span>+ GST</span></span>
-            <span className={styles.delivery}>Delivered in 14 days</span>
+            <span className={styles.price}>$250K+ <span>avg. Year 1 revenue</span></span>
+            <span className={styles.delivery}>Results within 90 days</span>
           </div>
         </div>
       </section>
@@ -40,13 +40,13 @@ export default function MelbourneLP() {
       <section className={styles.testimonial}>
         <blockquote>
           <p>"Every marketing agency I have worked with sends me the same report. Impressions. Clicks. Cost per lead. I would ask them: But how many of those leads became listings? They would shrug. These guys are different."</p>
-          <footer><strong>Sarah Chen</strong>, Director, Alliance Residential, Melbourne Inner East</footer>
+          <footer><strong>Sarah Chen</strong>, Director, Melbourne</footer>
         </blockquote>
       </section>
 
       <section className={styles.form} id="book">
         <div className={styles.formContent}>
-          <h2>Book Your Profitability Audit</h2>
+          <h2>Book Your Discovery Call</h2>
           <form>
             <div className={styles.formRow}>
               <input type="text" name="name" placeholder="Your Name" required />
@@ -73,7 +73,7 @@ export default function MelbourneLP() {
               </select>
             </div>
             <input type="hidden" name="location" value="melbourne" />
-            <button type="submit" className={styles.submitBtn}>Book Your Audit Now</button>
+            <button type="submit" className={styles.submitBtn}>Book Your Discovery Call</button>
           </form>
           <p className={styles.note}>For independent Melbourne agencies doing $2M+ in annual GCI</p>
         </div>

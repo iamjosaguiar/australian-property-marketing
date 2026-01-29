@@ -60,7 +60,7 @@ export default function CreativePage() {
       <section style={{ padding: 'var(--space-3xl) 0', background: 'var(--charcoal)', textAlign: 'center' }}>
         <div className="container">
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: 'var(--space-md)', color: 'var(--pure-white)' }}>Need Creative That Converts?</h2>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.125rem', marginBottom: 'var(--space-xl)', maxWidth: '500px', margin: '0 auto var(--space-xl)' }}>Tell us what you need. We will send you a quote within 24 hours.</p>
+          <p style={{ color: 'var(--text-on-dark)', fontSize: '1.125rem', marginBottom: 'var(--space-xl)', maxWidth: '500px', margin: '0 auto var(--space-xl)' }}>Tell us what you need. We will send you a quote within 24 hours.</p>
           <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', padding: '1.125rem 2rem', background: 'var(--coral)', color: 'var(--pure-white)', fontWeight: 600, borderRadius: '8px' }}>
             Get a Quote
           </Link>

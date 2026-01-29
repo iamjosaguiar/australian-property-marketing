@@ -62,6 +62,7 @@ export default function Problem() {
               <span className={styles.insightCostLabel}>per listing in marketing costs alone.</span>
             </div>
             <p className={styles.insightText}>The leads got more expensive. The conversion rate stayed the same.</p>
+            <p className={styles.insightText}>Last month, we audited an agency spending $11,400 on marketing. They had 147 leads. 4 appraisals. 1 listing. That is $11,400 for one listing. We found three gaps in their follow-up process. Same spend. Now they are averaging 6 listings a month.</p>
           </div>
 
           <div className={styles.conclusion}>

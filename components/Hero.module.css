@@ -17,8 +17,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(240, 92, 62, 0.08), transparent),
-    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(240, 92, 62, 0.05), transparent),
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(var(--coral-rgb), 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 90% 80%, rgba(var(--coral-rgb), 0.05), transparent),
     linear-gradient(to bottom, var(--warm-white), var(--soft-grey));
 }
 
@@ -26,8 +26,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(var(--black-rgb), 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--black-rgb), 0.02) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
 }
@@ -42,13 +42,13 @@
   gap: 0.625rem;
   padding: 0.625rem 1rem;
   background: var(--pure-white);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(var(--black-rgb), 0.08);
   border-radius: 100px;
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--charcoal-soft);
   margin-bottom: var(--space-lg);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 2px 12px rgba(var(--black-rgb), 0.04);
 }
 
 .badgeDot {
@@ -89,7 +89,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.resultsLink {
   margin-bottom: var(--space-2xl);
+}
+
+.resultsLink a {
+  color: var(--coral);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: opacity 0.2s ease;
+}
+
+.resultsLink a:hover {
+  opacity: 0.8;
 }
 
 .cta {
@@ -107,16 +122,16 @@
   background: var(--coral);
   color: var(--pure-white);
   box-shadow:
-    0 4px 16px rgba(240, 92, 62, 0.3),
-    0 1px 2px rgba(240, 92, 62, 0.2);
+    0 4px 16px rgba(var(--coral-rgb), 0.3),
+    0 1px 2px rgba(var(--coral-rgb), 0.2);
 }
 
 .ctaPrimary:hover {
   background: var(--coral-dark);
   transform: translateY(-3px);
   box-shadow:
-    0 8px 32px rgba(240, 92, 62, 0.4),
-    0 2px 4px rgba(240, 92, 62, 0.2);
+    0 8px 32px rgba(var(--coral-rgb), 0.4),
+    0 2px 4px rgba(var(--coral-rgb), 0.2);
 }
 
 .ctaPrimary svg {
@@ -130,7 +145,7 @@
 .ctaSecondary {
   background: var(--pure-white);
   color: var(--charcoal);
-  border: 2px solid rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(var(--black-rgb), 0.1);
 }
 
 .ctaSecondary:hover {
@@ -144,7 +159,7 @@
   align-items: center;
   gap: var(--space-xl);
   padding: var(--space-lg) 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-top: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .stat {
@@ -169,7 +184,7 @@
 .statDivider {
   width: 1px;
   height: 48px;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(var(--black-rgb), 0.1);
 }
 
 .scrollIndicator {

@@ -70,15 +70,15 @@
   background: var(--pure-white);
   border-radius: 24px;
   padding: var(--space-xl);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 8px 32px rgba(var(--black-rgb), 0.08), 0 2px 8px rgba(var(--black-rgb), 0.04);
+  border: 1px solid rgba(var(--black-rgb), 0.04);
 }
 
 .cardHeader {
   text-align: center;
   padding-bottom: var(--space-lg);
   margin-bottom: var(--space-lg);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .cardLabel {
@@ -95,6 +95,7 @@
 .cardCurrency { font-family: var(--font-display); font-size: 1.5rem; color: var(--charcoal); margin-top: 0.5rem; }
 .cardAmount { font-family: var(--font-display); font-size: 4rem; line-height: 1; color: var(--charcoal); }
 .cardGst { font-size: 0.875rem; color: var(--charcoal-soft); margin-top: auto; margin-bottom: 0.5rem; }
+.cardSubtitle { text-align: center; font-size: 1rem; color: var(--charcoal-soft); margin-top: var(--space-sm); }
 
 .cardDetails { display: flex; flex-direction: column; gap: var(--space-md); margin-bottom: var(--space-xl); }
 
@@ -122,13 +123,13 @@
   font-weight: 600;
   border-radius: 12px;
   transition: all 0.4s var(--ease-out-expo);
-  box-shadow: 0 4px 16px rgba(240, 92, 62, 0.3), 0 1px 2px rgba(240, 92, 62, 0.2);
+  box-shadow: 0 4px 16px rgba(var(--coral-rgb), 0.3), 0 1px 2px rgba(var(--coral-rgb), 0.2);
 }
 
 .cardCta:hover {
   background: var(--coral-dark);
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(240, 92, 62, 0.4), 0 2px 4px rgba(240, 92, 62, 0.2);
+  box-shadow: 0 8px 32px rgba(var(--coral-rgb), 0.4), 0 2px 4px rgba(var(--coral-rgb), 0.2);
 }
 
 .cardCta svg { transition: transform 0.3s var(--ease-out-expo); }
@@ -141,9 +142,9 @@
   gap: var(--space-md);
   margin-top: var(--space-lg);
   padding: var(--space-lg);
-  background: rgba(240, 92, 62, 0.05);
+  background: rgba(var(--coral-rgb), 0.05);
   border-radius: 12px;
-  border: 1px solid rgba(240, 92, 62, 0.1);
+  border: 1px solid rgba(var(--coral-rgb), 0.1);
 }
 
 .cardGuarantee svg { color: var(--coral); flex-shrink: 0; }

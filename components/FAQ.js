@@ -7,7 +7,7 @@ const faqs = [
   { question: "We are a franchise. Do you work with franchises?", answer: "We specialise in independent agencies. Franchises have mandated marketing programs that limit what we can do. Independents have more flexibility and more to gain." },
   { question: "What if we just need photography and video?", answer: "We do that too. But great creative without conversion tracking is just expensive content. The real value is knowing what works." },
   { question: "How fast will we see results?", answer: "The audit identifies problems immediately. Most agencies see measurable improvement within 60 to 90 days of implementing the fixes." },
-  { question: "Is the audit fee credited if we sign a retainer?", answer: "Yes. If you proceed to a full-service retainer within 30 days, we credit the $5,000 against your first month." }
+  { question: "What's the investment?", answer: "We discuss that on the discovery call. Every agency is different and we want to understand your situation before we talk numbers. What we can tell you: our average client adds 12 listings and $250K in revenue in their first year working with us." }
 ]
 
 export default function FAQ() {

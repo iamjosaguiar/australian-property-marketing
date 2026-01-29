@@ -79,7 +79,7 @@
 
 .formGroup input, .formGroup select, .formGroup textarea {
   padding: 0.875rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(var(--black-rgb), 0.1);
   border-radius: 8px;
   font-size: 1rem;
   font-family: var(--font-body);
@@ -108,7 +108,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.4s var(--ease-out-expo);
-  box-shadow: 0 4px 16px rgba(240, 92, 62, 0.3);
+  box-shadow: 0 4px 16px rgba(var(--coral-rgb), 0.3);
 }
 
 .submitBtn:hover { background: var(--coral-dark); transform: translateY(-2px); }

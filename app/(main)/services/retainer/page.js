@@ -51,10 +51,9 @@ export default function RetainerPage() {
 
       <section style={{ padding: 'var(--space-3xl) 0', background: 'var(--charcoal)' }}>
         <div className="container" style={{ maxWidth: '700px', textAlign: 'center' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: 'var(--space-lg)', color: 'var(--pure-white)' }}>Investment</h2>
-          <p style={{ fontFamily: 'var(--font-display)', fontSize: '4rem', color: 'var(--coral)', marginBottom: 'var(--space-md)' }}>From $10,000<span style={{ fontSize: '1.5rem', opacity: 0.7 }}>/month + GST</span></p>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.125rem', marginBottom: 'var(--space-md)' }}>Exact pricing depends on scope and number of agents.</p>
-          <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', marginBottom: 'var(--space-xl)' }}>All retainers include: dedicated strategist, full creative production, monthly reporting, quarterly strategy sessions.</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', marginBottom: 'var(--space-lg)', color: 'var(--pure-white)' }}>What Is Included</h2>
+          <p style={{ color: 'var(--text-on-dark)', fontSize: '1.125rem', marginBottom: 'var(--space-md)' }}>All retainers include: dedicated strategist, full creative production, monthly reporting, quarterly strategy sessions.</p>
+          <p style={{ color: 'var(--text-on-dark)', fontSize: '1rem', marginBottom: 'var(--space-xl)' }}>We discuss scope and investment on the discovery call. Every agency is different.</p>
           <p style={{ color: 'var(--coral)', fontWeight: 600 }}>90-day initial commitment. Month-to-month after that.</p>
         </div>
       </section>
@@ -65,7 +64,7 @@ export default function RetainerPage() {
             <p style={{ marginBottom: 'var(--space-lg)' }}>"We tried managing marketing in-house. We tried three different agencies. Nothing stuck. These guys have been running our marketing for 18 months now and I have not thought about it once. They just handle it. The numbers show up in my inbox every month and they keep going up. That is all I wanted. Someone competent who actually cares whether it works."</p>
             <footer style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', fontStyle: 'normal' }}>
               <strong>Peter Konstantinos</strong><br/>
-              <span style={{ color: 'var(--charcoal-soft)' }}>Principal, Konstantinos Property, Sydney Inner West</span>
+              <span style={{ color: 'var(--charcoal-soft)' }}>Principal, Sydney</span>
             </footer>
           </blockquote>
         </div>
@@ -73,10 +72,10 @@ export default function RetainerPage() {
 
       <section style={{ padding: 'var(--space-2xl) 0', background: 'var(--soft-grey)', textAlign: 'center' }}>
         <div className="container">
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 'var(--space-lg)', color: 'var(--charcoal)' }}>Start With a Profitability Audit</h2>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', marginBottom: 'var(--space-lg)', color: 'var(--charcoal)' }}>Start With a Discovery Call</h2>
           <p style={{ color: 'var(--charcoal-soft)', fontSize: '1.125rem', marginBottom: 'var(--space-xl)', maxWidth: '600px', margin: '0 auto var(--space-xl)' }}>Before committing to a retainer, understand exactly where your marketing is working and where it is not.</p>
-          <Link href="/audit" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', padding: '1.125rem 2rem', background: 'var(--coral)', color: 'var(--pure-white)', fontWeight: 600, borderRadius: '8px' }}>
-            Book Your Audit
+          <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', padding: '1.125rem 2rem', background: 'var(--coral)', color: 'var(--pure-white)', fontWeight: 600, borderRadius: '8px' }}>
+            Book Your Discovery Call
           </Link>
         </div>
       </section>

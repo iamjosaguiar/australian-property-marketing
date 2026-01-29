@@ -36,9 +36,9 @@ export default function ContactPage() {
                 <p>Industry insights and updates</p>
               </div>
               <div className={styles.audit}>
-                <h3>Ready for an Audit?</h3>
-                <p>If you know you want to move forward, book your Profitability Audit directly.</p>
-                <a href="/audit" className={styles.auditBtn}>Book Your Audit</a>
+                <h3>Ready to Talk?</h3>
+                <p>If you know you want to move forward, book your discovery call directly.</p>
+                <a href="/contact#book" className={styles.auditBtn}>Book Your Discovery Call</a>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ export default function ContactPage() {
                   <label htmlFor="subject">What can we help with?</label>
                   <select id="subject" name="subject" required>
                     <option value="">Select...</option>
-                    <option value="audit">Profitability Audit</option>
+                    <option value="discovery">Discovery Call</option>
                     <option value="retainer">Full Service Retainer</option>
                     <option value="creative">Creative Services</option>
                     <option value="other">General Enquiry</option>

@@ -37,7 +37,7 @@ export default function AuditPage() {
             The Profitability Audit traces every marketing dollar through your pipeline and shows you precisely which investments generate listings and which generate nothing.
           </p>
           <a href="#book" className={styles.cta}>
-            Book Your Audit
+            Book Your Discovery Call
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -90,14 +90,14 @@ export default function AuditPage() {
       <section className={styles.investment}>
         <div className="container">
           <div className={styles.investmentCard}>
-            <h2>Investment</h2>
+            <h2>What Our Clients Typically See</h2>
             <div className={styles.price}>
               <span className={styles.priceCurrency}>$</span>
-              <span className={styles.priceAmount}>5,000</span>
-              <span className={styles.priceGst}>+ GST</span>
+              <span className={styles.priceAmount}>250,000</span>
+              <span className={styles.priceGst}>+</span>
             </div>
-            <p>Most agencies find more than $5,000 in wasted spend or missed opportunities in the first month.</p>
-            <p className={styles.credit}>If you proceed to a retainer within 30 days, we credit the full audit fee against your first month.</p>
+            <p>Average additional revenue in Year 1. We discuss investment on the discovery call.</p>
+            <p className={styles.credit}>Every agency is different. We want to understand your situation before we talk numbers.</p>
           </div>
         </div>
       </section>
@@ -117,7 +117,7 @@ export default function AuditPage() {
       <section className={styles.booking} id="book">
         <div className="container">
           <div className={styles.bookingCard}>
-            <h2>Book Your Profitability Audit</h2>
+            <h2>Book Your Discovery Call</h2>
             <p>Fill out the form below to schedule your discovery call.</p>
             <form className={styles.form}>
               <div className={styles.formRow}>

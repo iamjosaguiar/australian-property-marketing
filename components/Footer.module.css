@@ -1,7 +1,7 @@
 .footer {
   background: var(--soft-grey);
   padding: var(--space-2xl) 0 var(--space-lg);
-  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-top: 1px solid rgba(var(--black-rgb), 0.04);
 }
 
 .grid {
@@ -9,7 +9,7 @@
   grid-template-columns: 1fr 2fr;
   gap: var(--space-3xl);
   padding-bottom: var(--space-2xl);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .brand {
@@ -81,7 +81,7 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s var(--ease-out-expo);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .socialLink:hover {

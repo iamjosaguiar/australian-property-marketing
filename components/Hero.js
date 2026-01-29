@@ -28,16 +28,17 @@ export default function Hero() {
         </p>
 
         <div className={`${styles.actions} animate-fade-up animate-delay-3`}>
-          <Link href="/audit" className={`${styles.cta} ${styles.ctaPrimary}`}>
-            Book Your Profitability Audit
+          <Link href="/contact" className={`${styles.cta} ${styles.ctaPrimary}`}>
+            Book Your Discovery Call
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </Link>
-          <Link href="/results" className={`${styles.cta} ${styles.ctaSecondary}`}>
-            See Client Results
-          </Link>
         </div>
+
+        <p className={`${styles.resultsLink} animate-fade-up animate-delay-3`}>
+          <Link href="/results">See what other principals say →</Link>
+        </p>
 
         <div className={`${styles.stats} animate-fade-up animate-delay-4`}>
           <div className={styles.stat}>
@@ -46,23 +47,15 @@ export default function Hero() {
           </div>
           <div className={styles.statDivider}></div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>$5K</span>
-            <span className={styles.statLabel}>Audit investment</span>
+            <span className={styles.statNumber}>$250K</span>
+            <span className={styles.statLabel}>Avg. additional revenue (Year 1)</span>
           </div>
           <div className={styles.statDivider}></div>
           <div className={styles.stat}>
-            <span className={styles.statNumber}>14</span>
-            <span className={styles.statLabel}>Days to delivery</span>
+            <span className={styles.statNumber}>12</span>
+            <span className={styles.statLabel}>Extra listings per year</span>
           </div>
         </div>
-      </div>
-
-      <div className={styles.scrollIndicator}>
-        <span>Scroll to explore</span>
-        <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
-          <rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" strokeWidth="2"/>
-          <circle className={styles.scrollDot} cx="8" cy="8" r="2" fill="currentColor"/>
-        </svg>
       </div>
     </section>
   )

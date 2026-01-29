@@ -31,22 +31,22 @@ export default function RealEstateMarketingLP() {
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> 90-day action plan</li>
           </ul>
           <div className={styles.pricing}>
-            <span className={styles.price}>$5,000 <span>+ GST</span></span>
-            <span className={styles.delivery}>Delivered in 14 days</span>
+            <span className={styles.price}>$250K+ <span>avg. Year 1 revenue</span></span>
+            <span className={styles.delivery}>Results within 90 days</span>
           </div>
         </div>
       </section>
 
       <section className={styles.testimonial}>
         <blockquote>
-          <p>"I was sceptical. Really sceptical. I have spent $200,000 on marketing consultants over the years and most of it was wasted on pretty reports and vague recommendations. The audit cost me $5,000 and it paid for itself in the first month."</p>
-          <footer><strong>David Holloway</strong>, Owner, Holloway & Partners, Brisbane</footer>
+          <p>"I was sceptical. Really sceptical. I have spent $200,000 on marketing consultants over the years and most of it was wasted on pretty reports and vague recommendations. They found $3,200 a month in ad spend generating zero appraisals. Then they rebuilt our follow-up system and our conversion rate went from 1.2% to 3.1% in four months."</p>
+          <footer><strong>David Holloway</strong>, Owner, Brisbane</footer>
         </blockquote>
       </section>
 
       <section className={styles.form} id="book">
         <div className={styles.formContent}>
-          <h2>Book Your Profitability Audit</h2>
+          <h2>Book Your Discovery Call</h2>
           <form>
             <div className={styles.formRow}>
               <input type="text" name="name" placeholder="Your Name" required />
@@ -72,7 +72,7 @@ export default function RealEstateMarketingLP() {
                 <option value="20k+">$20,000+</option>
               </select>
             </div>
-            <button type="submit" className={styles.submitBtn}>Book Your Audit Now</button>
+            <button type="submit" className={styles.submitBtn}>Book Your Discovery Call</button>
           </form>
           <p className={styles.note}>For independent agencies doing $2M+ in annual GCI</p>
         </div>

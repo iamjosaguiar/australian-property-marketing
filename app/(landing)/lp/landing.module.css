@@ -6,7 +6,7 @@
 .header {
   padding: var(--space-lg);
   text-align: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .header img { pointer-events: none; }
@@ -29,7 +29,7 @@
 
 .subhead {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(var(--white-rgb), 0.8);
   line-height: 1.6;
 }
 
@@ -60,7 +60,7 @@
   padding: var(--space-md) 0;
   font-size: 1.125rem;
   color: var(--charcoal-soft);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(var(--black-rgb), 0.06);
 }
 
 .features svg { color: var(--coral); flex-shrink: 0; }
@@ -87,7 +87,7 @@
   font-size: 1rem;
   color: var(--charcoal-soft);
   padding-left: var(--space-xl);
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  border-left: 1px solid rgba(var(--black-rgb), 0.1);
 }
 
 .testimonial {
@@ -162,7 +162,7 @@
 
 .note {
   text-align: center;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(var(--white-rgb), 0.8);
   font-size: 0.875rem;
   margin-top: var(--space-lg);
 }
@@ -173,10 +173,10 @@
   background: var(--charcoal);
 }
 
-.footer p { color: rgba(255, 255, 255, 0.5); font-size: 0.875rem; }
+.footer p { color: rgba(var(--white-rgb), 0.5); font-size: 0.875rem; }
 
 @media (max-width: 600px) {
   .formRow { grid-template-columns: 1fr; }
   .pricing { flex-direction: column; gap: var(--space-md); }
-  .delivery { padding-left: 0; border-left: none; padding-top: var(--space-md); border-top: 1px solid rgba(0, 0, 0, 0.1); }
+  .delivery { padding-left: 0; border-left: none; padding-top: var(--space-md); border-top: 1px solid rgba(var(--black-rgb), 0.1); }
 }

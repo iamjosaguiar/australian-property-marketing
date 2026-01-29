@@ -31,8 +31,8 @@ export default function SydneyLP() {
             <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg> 90-day action plan</li>
           </ul>
           <div className={styles.pricing}>
-            <span className={styles.price}>$5,000 <span>+ GST</span></span>
-            <span className={styles.delivery}>Delivered in 14 days</span>
+            <span className={styles.price}>$250K+ <span>avg. Year 1 revenue</span></span>
+            <span className={styles.delivery}>Results within 90 days</span>
           </div>
         </div>
       </section>
@@ -40,13 +40,13 @@ export default function SydneyLP() {
       <section className={styles.testimonial}>
         <blockquote>
           <p>"We tried managing marketing in-house. We tried three different agencies. Nothing stuck. These guys have been running our marketing for 18 months now and I have not thought about it once. They just handle it."</p>
-          <footer><strong>Peter Konstantinos</strong>, Principal, Konstantinos Property, Sydney Inner West</footer>
+          <footer><strong>Peter Konstantinos</strong>, Principal, Sydney</footer>
         </blockquote>
       </section>
 
       <section className={styles.form} id="book">
         <div className={styles.formContent}>
-          <h2>Book Your Profitability Audit</h2>
+          <h2>Book Your Discovery Call</h2>
           <form>
             <div className={styles.formRow}>
               <input type="text" name="name" placeholder="Your Name" required />
@@ -73,7 +73,7 @@ export default function SydneyLP() {
               </select>
             </div>
             <input type="hidden" name="location" value="sydney" />
-            <button type="submit" className={styles.submitBtn}>Book Your Audit Now</button>
+            <button type="submit" className={styles.submitBtn}>Book Your Discovery Call</button>
           </form>
           <p className={styles.note}>For independent Sydney agencies doing $2M+ in annual GCI</p>
         </div>

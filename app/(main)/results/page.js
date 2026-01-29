@@ -8,7 +8,7 @@ export const metadata = {
 
 const caseStudies = [
   {
-    agency: 'Brennan Property Group',
+    agency: 'Independent agency',
     location: 'Newcastle',
     size: '18 agents',
     problem: 'Spending $14,000 per month on marketing. Leads were coming in but listings were flat. No visibility on what was working.',
@@ -19,8 +19,8 @@ const caseStudies = [
     title: 'Principal'
   },
   {
-    agency: 'Alliance Residential',
-    location: 'Melbourne Inner East',
+    agency: 'Independent agency',
+    location: 'Melbourne',
     size: '24 agents',
     problem: 'Multiple marketing campaigns running but no visibility on which ones actually generated listings vs just leads.',
     solution: 'Complete lead-to-listing tracking implementation. Built custom reporting dashboards connecting ad spend to signed agency agreements.',
@@ -30,13 +30,13 @@ const caseStudies = [
     title: 'Director'
   },
   {
-    agency: 'Holloway & Partners',
-    location: 'Brisbane Northside',
+    agency: 'Independent agency',
+    location: 'Brisbane',
     size: '15 agents',
     problem: 'Years of wasted marketing spend with no accountability. Low conversion rate of 1.2%.',
     solution: 'Identified $3,200/month in ad spend generating zero appraisals. Rebuilt follow-up system with automated sequences.',
     results: ['Conversion rate: 1.2% → 3.1%', '$3,200/month saved immediately', 'Audit paid for itself in month one', 'System improvements ongoing'],
-    quote: "I was sceptical. Really sceptical. I have spent $200,000 on marketing consultants over the years. The audit cost me $5,000 and it paid for itself in the first month.",
+    quote: "I was sceptical. Really sceptical. I have spent $200,000 on marketing consultants over the years and most of it was wasted on pretty reports and vague recommendations. They found $3,200 a month in ad spend that was generating zero appraisals. Then they rebuilt our follow-up system and our conversion rate went from 1.2% to 3.1% in four months.",
     person: 'David Holloway',
     title: 'Owner'
   }
@@ -98,8 +98,8 @@ export default function ResultsPage() {
       <section className={styles.cta}>
         <div className="container">
           <h2>Ready to See Results Like These?</h2>
-          <p>Start with a Profitability Audit and find out where your marketing money is actually going.</p>
-          <Link href="/audit" className={styles.ctaBtn}>Book Your Audit</Link>
+          <p>Start with a discovery call and find out where your marketing money is actually going.</p>
+          <Link href="/contact" className={styles.ctaBtn}>Book Your Discovery Call</Link>
         </div>
       </section>
     </div>

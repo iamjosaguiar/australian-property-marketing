@@ -614,9 +614,7 @@ Reference to local market in copy.
 
 ## 11.1 Platform
 
-WordPress with modern page builder (Bricks, Oxygen, or Breakdance).
-
-Or Webflow if preferred.
+NextJS 16
 
 Must be easy to update content without developer assistance.
 
