@@ -8,6 +8,35 @@ const RECIPIENTS = [
 ]
 const SENDER = 'noreply@australianpropertymarketing.com.au'
 
+const AC_API_URL = process.env.ACTIVECAMPAIGN_API_URL
+const AC_API_KEY = process.env.ACTIVECAMPAIGN_API_KEY
+const AC_LIST_ID = process.env.ACTIVECAMPAIGN_LIST_ID
+
+async function addToActiveCampaign(email) {
+  // Create or update the contact
+  const contactRes = await fetch(`${AC_API_URL}/api/3/contact/sync`, {
+    method: 'POST',
+    headers: { 'Api-Token': AC_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contact: { email } }),
+  })
+  if (!contactRes.ok) {
+    const err = await contactRes.text()
+    throw new Error(`ActiveCampaign contact sync failed: ${err}`)
+  }
+  const { contact } = await contactRes.json()
+
+  // Subscribe contact to the newsletter list
+  const listRes = await fetch(`${AC_API_URL}/api/3/contactLists`, {
+    method: 'POST',
+    headers: { 'Api-Token': AC_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contactList: { list: AC_LIST_ID, contact: contact.id, status: 1 } }),
+  })
+  if (!listRes.ok) {
+    const err = await listRes.text()
+    throw new Error(`ActiveCampaign list subscribe failed: ${err}`)
+  }
+}
+
 const REQUIRED_FIELDS = {
   contact: ['name', 'email', 'subject', 'message'],
   audit: ['name', 'email', 'phone', 'agency', 'agents', 'spend'],
@@ -78,6 +107,10 @@ export async function POST(request) {
       subject: subjectLine,
       html: buildHtml(formType, data),
     })
+
+    if (formType === 'newsletter') {
+      await addToActiveCampaign(data.email)
+    }
 
     return Response.json({ success: true })
   } catch (error) {
