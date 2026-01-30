@@ -22,13 +22,8 @@ export default function ContactPage() {
           <div className={styles.grid}>
             <div className={styles.info}>
               <div className={styles.infoBlock}>
-                <h3>Phone</h3>
-                <a href="tel:1300APMNOW" className={styles.infoLink}>1300 APM NOW</a>
-                <p>Monday - Friday, 9am - 5pm AEST</p>
-              </div>
-              <div className={styles.infoBlock}>
                 <h3>Email</h3>
-                <a href="mailto:hello@australianpropertymarketing.com.au" className={styles.infoLink}>hello@australianpropertymarketing.com.au</a>
+                <a href="mailto:info@australianpropertymarketing.com.au" className={styles.infoLink}>info@australianpropertymarketing.com.au</a>
                 <p>We respond within 24 hours</p>
               </div>
               <div className={styles.infoBlock}>

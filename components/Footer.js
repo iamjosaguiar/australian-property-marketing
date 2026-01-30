@@ -36,11 +36,8 @@ export default function Footer() {
 
             <div className={styles.navGroup}>
               <h4 className={styles.navTitle}>Contact</h4>
-              <a href="tel:1300APMNOW" className={`${styles.navLink} ${styles.highlight}`}>
-                1300 APM NOW
-              </a>
-              <a href="mailto:hello@australianpropertymarketing.com.au" className={styles.navLink}>
-                hello@apm.com.au
+              <a href="mailto:info@australianpropertymarketing.com.au" className={`${styles.navLink} ${styles.highlight}`}>
+                info@australianpropertymarketing.com.au
               </a>
               <div className={styles.social}>
                 <a href="https://linkedin.com/company/australian-property-marketing" className={styles.socialLink} aria-label="LinkedIn">
