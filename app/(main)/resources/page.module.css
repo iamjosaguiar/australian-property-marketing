@@ -14,15 +14,22 @@
 
 .articleGrid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-xl); }
 
+.articleLink {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .article {
   padding: var(--space-xl);
   background: var(--soft-grey);
   border-radius: 16px;
   transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
   cursor: pointer;
+  height: 100%;
 }
 
-.article:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(var(--black-rgb), 0.08); }
+.articleLink:hover .article { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(var(--black-rgb), 0.08); }
 
 .articleMeta { display: flex; gap: var(--space-md); margin-bottom: var(--space-md); }
 
