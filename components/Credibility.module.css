@@ -37,6 +37,7 @@
 .photo {
   object-fit: cover;
   object-position: center top;
+  transition: opacity 0.3s ease;
 }
 
 .badge {

@@ -3,9 +3,13 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import styles from './Credibility.module.css'
 
+import andy1 from '@/public/Andy 1.jpeg'
+import andy2 from '@/public/Andy 2.jpeg'
+
 export default function Credibility() {
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
+  const [hovered, setHovered] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -22,13 +26,28 @@ export default function Credibility() {
         <div className={styles.grid}>
           <div className={`${styles.visual} ${isVisible ? styles.visible : ''}`}>
             <div className={styles.imageWrap}>
-              <div className={styles.image}>
+              <div
+                className={styles.image}
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+              >
                 <Image
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80&fit=crop"
+                  src={andy1}
                   alt="Andy - Founder of Australian Property Marketing"
                   fill
                   sizes="(max-width: 1024px) 320px, 400px"
                   className={styles.photo}
+                  placeholder="blur"
+                  style={{ opacity: hovered ? 0 : 1 }}
+                />
+                <Image
+                  src={andy2}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1024px) 320px, 400px"
+                  className={styles.photo}
+                  placeholder="blur"
+                  style={{ opacity: hovered ? 1 : 0 }}
                 />
                 <div className={styles.badge}>
                   <span className={styles.badgeNumber}>11+</span>

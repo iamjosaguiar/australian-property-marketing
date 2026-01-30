@@ -1,3 +1,4 @@
+import AndyPhoto from './AndyPhoto'
 import styles from './page.module.css'
 
 export const metadata = {
@@ -19,13 +20,10 @@ export default function AboutPage() {
         <div className="container">
           <div className={styles.storyGrid}>
             <div className={styles.storyImage}>
-              <div className={styles.imagePlaceholder}>
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                  <circle cx="12" cy="7" r="4"/>
-                </svg>
-                <span>Andy</span>
-                <span className={styles.imageSubtitle}>Founder</span>
+              <AndyPhoto />
+              <div style={{ textAlign: 'center', marginTop: '0.75rem' }}>
+                <span style={{ fontWeight: 600 }}>Andy</span>
+                <span className={styles.imageSubtitle}> — Founder</span>
               </div>
             </div>
             <div className={styles.storyContent}>
