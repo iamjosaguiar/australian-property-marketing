@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { articles } from '@/lib/articles'
+import { JsonLd, articleSchema, breadcrumbSchema } from '@/lib/schema'
 import ShareLinks from './ShareLinks'
 import styles from './page.module.css'
 import andy1 from '@/public/Andy 1.jpeg'
@@ -31,6 +32,14 @@ export default async function ArticlePage({ params }) {
 
   return (
     <div className={styles.article}>
+      <JsonLd data={[
+        articleSchema(article),
+        breadcrumbSchema([
+          { name: 'Home', url: '/' },
+          { name: 'Resources', url: '/resources' },
+          { name: article.title },
+        ]),
+      ]} />
       <article className={styles.content}>
         <div className="container">
           <Link href="/resources" className={styles.back}>← Back to Resources</Link>

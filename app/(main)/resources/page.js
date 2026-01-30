@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import NewsletterForm from './NewsletterForm'
 import { articles } from '@/lib/articles'
+import { JsonLd, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
@@ -8,9 +9,29 @@ export const metadata = {
   description: 'Insights and resources for real estate agency principals. Marketing strategies, conversion tips, and industry analysis.',
 }
 
+const resourcesSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Resources',
+  description: 'Insights and resources for real estate agency principals. Marketing strategies, conversion tips, and industry analysis.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: articles.map((article, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `https://australianpropertymarketing.com.au/resources/${article.slug}`,
+      name: article.title,
+    })),
+  },
+}
+
 export default function ResourcesPage() {
   return (
     <div className={styles.resources}>
+      <JsonLd data={[
+        resourcesSchema,
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Resources' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={`${styles.heroContent} container`}>
           <span className={styles.label}>Resources</span>

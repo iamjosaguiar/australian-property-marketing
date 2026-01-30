@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import LandingForm from '../LandingForm'
+import { JsonLd, localBusinessSchema } from '@/lib/schema'
 import styles from '../landing.module.css'
 
 export const metadata = {
@@ -10,6 +11,7 @@ export const metadata = {
 export default function MelbourneLP() {
   return (
     <div className={styles.landing}>
+      <JsonLd data={localBusinessSchema({ city: 'Melbourne', description: 'Melbourne real estate marketing that generates listings, not just leads. The Profitability Audit traces every dollar through your pipeline.' })} />
       <header className={styles.header}>
         <Image src="/logo.png" alt="Australian Property Marketing" width={160} height={40} />
       </header>

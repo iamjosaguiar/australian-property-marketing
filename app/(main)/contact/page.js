@@ -1,4 +1,5 @@
 import ContactForm from './ContactForm'
+import { JsonLd, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
@@ -6,9 +7,31 @@ export const metadata = {
   description: 'Get in touch with Australian Property Marketing. We help real estate agencies generate more listings.',
 }
 
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Australian Property Marketing',
+  description: 'Get in touch with Australian Property Marketing. We help real estate agencies generate more listings.',
+  mainEntity: {
+    '@type': 'MarketingAgency',
+    name: 'Australian Property Marketing',
+    email: 'info@australianpropertymarketing.com.au',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'info@australianpropertymarketing.com.au',
+      contactType: 'sales',
+      availableLanguage: 'English',
+    },
+  },
+}
+
 export default function ContactPage() {
   return (
     <div className={styles.contact}>
+      <JsonLd data={[
+        contactSchema,
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Contact' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={`${styles.heroContent} container`}>
           <span className={styles.label}>Contact</span>

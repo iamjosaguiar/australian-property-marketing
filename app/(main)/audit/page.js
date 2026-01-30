@@ -1,9 +1,37 @@
 import AuditForm from './AuditForm'
+import { JsonLd, serviceSchema, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
   title: 'Profitability Audit | Australian Property Marketing',
   description: 'Find out exactly where your marketing money is going. And where it is leaking. The audit traces every marketing dollar through your pipeline.',
+}
+
+const auditServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Profitability Audit',
+  description: 'The Profitability Audit traces every marketing dollar through your pipeline and shows you precisely which investments generate listings and which generate nothing.',
+  url: 'https://australianpropertymarketing.com.au/audit',
+  provider: { '@id': 'https://australianpropertymarketing.com.au/#organization' },
+  areaServed: { '@type': 'Country', name: 'Australia' },
+  offers: {
+    '@type': 'Offer',
+    description: 'Average additional revenue of $250,000+ in Year 1. Investment discussed on discovery call.',
+    availability: 'https://schema.org/InStock',
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'What Is Included',
+    itemListElement: [
+      'Marketing Spend Analysis',
+      'Lead Source Audit',
+      'Conversion Rate Breakdown',
+      'Profit Leak Identification',
+      '90-Day Action Plan',
+      'Strategy Session',
+    ],
+  },
 }
 
 const included = [
@@ -26,6 +54,10 @@ const process = [
 export default function AuditPage() {
   return (
     <div className={styles.audit}>
+      <JsonLd data={[
+        auditServiceSchema,
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Profitability Audit' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={styles.heroBg}></div>
         <div className={`${styles.heroContent} container`}>

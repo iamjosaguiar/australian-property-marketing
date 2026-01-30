@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import LandingForm from '../LandingForm'
+import { JsonLd, serviceSchema } from '@/lib/schema'
 import styles from '../landing.module.css'
 
 export const metadata = {
@@ -10,6 +11,7 @@ export const metadata = {
 export default function RealEstateMarketingLP() {
   return (
     <div className={styles.landing}>
+      <JsonLd data={serviceSchema({ name: 'Real Estate Marketing Audit', description: 'Find out where your marketing money is going. The Profitability Audit traces every dollar through your pipeline.', url: '/lp/real-estate-marketing' })} />
       <header className={styles.header}>
         <Image src="/logo.png" alt="Australian Property Marketing" width={160} height={40} />
       </header>

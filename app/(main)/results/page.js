@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { JsonLd, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
@@ -45,6 +46,21 @@ const caseStudies = [
 export default function ResultsPage() {
   return (
     <div className={styles.results}>
+      <JsonLd data={[
+        {
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Client Results',
+          description: 'Numbers. Not promises. Real case studies and results from real estate agencies across Australia.',
+          review: caseStudies.map((study) => ({
+            '@type': 'Review',
+            author: { '@type': 'Person', name: study.person },
+            reviewBody: study.quote,
+            itemReviewed: { '@id': 'https://australianpropertymarketing.com.au/#organization' },
+          })),
+        },
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Results' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={`${styles.heroContent} container`}>
           <span className={styles.label}>Client Results</span>

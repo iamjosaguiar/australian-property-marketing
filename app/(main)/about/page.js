@@ -1,4 +1,5 @@
 import AndyPhoto from './AndyPhoto'
+import { JsonLd, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
@@ -6,9 +7,30 @@ export const metadata = {
   description: 'We started this company because we were tired of marketing that did not work. Built by a former real estate agent who understands the business.',
 }
 
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Australian Property Marketing',
+  description: 'We started this company because we were tired of marketing that did not work. Built by a former real estate agent who understands the business.',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Andy',
+    jobTitle: 'Founder',
+    worksFor: {
+      '@type': 'MarketingAgency',
+      name: 'Australian Property Marketing',
+    },
+    description: 'Former real estate agent who built Australian Property Marketing to give agency principals marketing measured by results, not activity.',
+  },
+}
+
 export default function AboutPage() {
   return (
     <div className={styles.about}>
+      <JsonLd data={[
+        aboutSchema,
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'About' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={`${styles.heroContent} container`}>
           <span className={styles.label}>About Us</span>

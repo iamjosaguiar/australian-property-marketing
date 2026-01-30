@@ -1,10 +1,18 @@
 import Link from 'next/link'
+import { JsonLd, serviceSchema, breadcrumbSchema } from '@/lib/schema'
 import styles from './page.module.css'
 
 export const metadata = {
   title: 'Services | Australian Property Marketing',
   description: 'Marketing services for real estate agents, buyers agents, property investors, and builders across Australia.',
 }
+
+const servicesSchemas = [
+  serviceSchema({ name: 'Real Estate Agent Marketing', description: 'Lead generation that targets genuine sellers. Conversion systems that stop leads falling through the cracks. Creative that positions you as the obvious choice.', url: '/services' }),
+  serviceSchema({ name: 'Buyers Agent Marketing', description: 'Campaigns that attract serious buyers with capital ready to deploy. No tyre-kickers. Just qualified leads who need your expertise.', url: '/services' }),
+  serviceSchema({ name: 'Property Investor Marketing', description: 'Targeted campaigns that reach investors at the right moment. Lead qualification that filters out the curious from the committed.', url: '/services' }),
+  serviceSchema({ name: 'Builder Marketing', description: 'Generate leads from people who have land, finance, and intent. Your sales team spends less time qualifying and more time closing.', url: '/services' }),
+]
 
 const verticals = [
   {
@@ -36,6 +44,10 @@ const verticals = [
 export default function ServicesPage() {
   return (
     <div className={styles.services}>
+      <JsonLd data={[
+        ...servicesSchemas,
+        breadcrumbSchema([{ name: 'Home', url: '/' }, { name: 'Services' }]),
+      ]} />
       <section className={styles.hero}>
         <div className={`${styles.heroContent} container`}>
           <span className={styles.label}>Our Services</span>
